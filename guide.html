@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kompletan Airbnb Hosting Vodič</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0F2F61;--orange:#FF6700;
+  --white:#FFFFFF;--light:#F4F4F2;
+  --dark:#1a1a1a;--gray:#5a5f66;
+  --sidebar:280px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);display:flex;flex-direction:column;min-height:100vh}
+
+/* TOP BAR */
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:var(--navy);display:flex;align-items:center;padding:0 1.5rem;gap:1rem;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.topbar-logo{color:#fff;font-weight:800;font-size:1rem;flex:1;letter-spacing:.3px}
+.topbar-logo span{color:var(--orange)}
+.menu-btn{background:none;border:none;cursor:pointer;padding:.4rem;color:#fff;font-size:1.4rem;line-height:1;display:none}
+.progress-bar{position:fixed;top:56px;left:0;right:0;height:3px;background:rgba(255,255,255,.1);z-index:199}
+.progress-fill{height:100%;background:var(--orange);width:0%;transition:width .1s linear}
+
+/* LAYOUT */
+.layout{display:flex;margin-top:59px;min-height:calc(100vh - 59px)}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);min-width:var(--sidebar);background:var(--navy);position:fixed;top:59px;bottom:0;left:0;overflow-y:auto;z-index:100;padding:1.5rem 0 3rem;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:2px}
+.sidebar-title{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:2.5px;padding:.5rem 1.5rem 1rem}
+.sidebar ul{list-style:none}
+.nav-link{display:flex;align-items:flex-start;gap:.65rem;padding:.55rem 1.5rem;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;line-height:1.35;transition:background .15s,color .15s;border-left:3px solid transparent}
+.nav-link:hover,.nav-link.active{background:rgba(255,255,255,.07);color:#fff;border-left-color:var(--orange)}
+.nav-num{color:var(--orange);font-weight:700;font-size:.7rem;flex-shrink:0;margin-top:.08rem;min-width:1.5rem}
+
+/* MAIN */
+.main{margin-left:var(--sidebar);flex:1;max-width:860px;padding:2rem 2.5rem 7rem}
+
+/* CHAPTER COVER */
+.chapter{margin-bottom:2px}
+.ch-cover{padding:3.5rem 2.5rem 3rem;border-radius:12px 12px 0 0}
+.ch-cover-num{font-size:.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:.5rem}
+.ch-cover-title{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;line-height:1.2;color:#fff;margin-bottom:.6rem}
+.ch-cover-sub{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px;opacity:.85}
+
+/* CHAPTER BODY */
+.ch-body{background:#fff;border-radius:0 0 12px 12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+
+/* SLIDES */
+.slide-content{padding:2rem 2.5rem;border-bottom:1px solid #efefed}
+.slide-content:last-child{border-bottom:none}
+.slide-conclusion{background:#f9f9f7;padding:2rem 2.5rem;border-top:3px solid var(--orange);border-bottom:none}
+
+/* TEXT ELEMENTS */
+.slide-point{
+  margin-bottom:1.4rem;
+  padding:1rem 1rem 1rem 1.25rem;
+  border-left:3px solid var(--orange);
+  background:#fafaf8;
+  border-radius:0 6px 6px 0;
+}
+.slide-point:last-child{margin-bottom:0}
+.point-title{font-weight:700;color:var(--navy);font-size:.97rem;margin-bottom:.35rem;line-height:1.35}
+.point-body{color:var(--gray);font-size:.875rem;line-height:1.65}
+.slide-body{color:var(--gray);font-size:.9rem;line-height:1.7;margin-bottom:.8rem}
+.slide-body:last-child{margin-bottom:0}
+.slide-deco{font-size:.68rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:2px;margin-bottom:.65rem;padding-bottom:.4rem;border-bottom:1px solid rgba(255,103,0,.2)}
+
+/* MESSAGE TEMPLATES */
+.msg-intro{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:1.5rem;padding:.75rem 1rem;background:rgba(15,47,97,.06);border-radius:6px;letter-spacing:.2px}
+.msg-card{border:1px solid #e6e6e4;border-radius:10px;overflow:hidden;margin-bottom:1.75rem;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.msg-card:last-child{margin-bottom:0}
+.msg-card-header{display:flex;justify-content:space-between;align-items:center;padding:.75rem 1.25rem;background:#f7f7f5;border-bottom:1px solid #e6e6e4;flex-wrap:wrap;gap:.4rem}
+.msg-timing{font-size:.82rem;font-weight:600;color:var(--dark)}
+.msg-tag{font-size:.68rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;background:rgba(255,103,0,.1);padding:.2rem .65rem;border-radius:10px;flex-shrink:0}
+.msg-bubble{margin:.85rem 1.25rem;padding:1.25rem 1.4rem;background:#fff;border:1px solid #eaeae8;border-left:4px solid var(--orange);border-radius:0 8px 8px 0;font-size:.875rem;line-height:1.75;color:var(--dark)}
+.msg-bubble p{margin:0}
+.msg-tip{padding:.75rem 1.25rem 1rem;font-size:.8rem;color:var(--gray);background:#fafaf8;border-top:1px solid #efefed;line-height:1.55}
+.msg-tip strong{color:var(--navy)}
+.nav-special .nav-num{font-style:normal;font-size:.9rem}
+
+/* BACK TO TOP */
+.back-top{position:fixed;bottom:2rem;right:2rem;background:var(--navy);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;transition:opacity .2s,transform .2s;opacity:0;pointer-events:none}
+.back-top.visible{opacity:1;pointer-events:auto}
+.back-top:hover{transform:translateY(-2px);background:var(--orange)}
+
+/* OVERLAY */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
+
+/* MOBILE */
+@media(max-width:768px){
+  :root{--sidebar:260px}
+  .sidebar{transform:translateX(-100%);transition:transform .25s ease}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0;padding:1.5rem 1rem 5rem}
+  .menu-btn{display:block}
+  .overlay.show{display:block}
+  .ch-cover{padding:2.5rem 1.5rem 2rem}
+  .slide-content,.slide-conclusion{padding:1.5rem 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+  <div class="topbar-logo">Airbnb<span>Vodič</span></div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-title">Sadržaj</div>
+    <ul><li><a href="#ch1" class="nav-link" onclick="closeSidebar()"><span class="nav-num">01</span>Šta je Airbnb hosting i zašto je toliko popularan?</a></li>
+<li><a href="#ch2" class="nav-link" onclick="closeSidebar()"><span class="nav-num">02</span>Kreiranje Airbnb Accounta</a></li>
+<li><a href="#ch3" class="nav-link" onclick="closeSidebar()"><span class="nav-num">03</span>Inside airbnb</a></li>
+<li><a href="#ch4" class="nav-link" onclick="closeSidebar()"><span class="nav-num">04</span>Priprema prostora</a></li>
+<li><a href="#ch5" class="nav-link" onclick="closeSidebar()"><span class="nav-num">05</span>Postavljanje Cijene</a></li>
+<li><a href="#ch6" class="nav-link" onclick="closeSidebar()"><span class="nav-num">06</span>Kako napisati opis apartmana koji privlači goste</a></li>
+<li><a href="#ch7" class="nav-link" onclick="closeSidebar()"><span class="nav-num">07</span>Upravljanje Rezervacijama</a></li>
+<li><a href="#ch8" class="nav-link" onclick="closeSidebar()"><span class="nav-num">08</span>Priprema za Check-In</a></li>
+<li><a href="#ch9" class="nav-link" onclick="closeSidebar()"><span class="nav-num">09</span>Doček Gostiju</a></li>
+<li><a href="#ch10" class="nav-link" onclick="closeSidebar()"><span class="nav-num">10</span>Pravila Smještaja</a></li>
+<li><a href="#ch11" class="nav-link" onclick="closeSidebar()"><span class="nav-num">11</span>Čistoća</a></li>
+<li><a href="#messaging" class="nav-link" onclick="closeSidebar()"><span class="nav-num">12</span>Automatske Poruke</a></li>
+<li><a href="#ch12" class="nav-link" onclick="closeSidebar()"><span class="nav-num">13</span>Rješavanje Problema</a></li>
+<li><a href="#ch13" class="nav-link" onclick="closeSidebar()"><span class="nav-num">14</span>Upselling Tvog Smještaja</a></li>
+<li><a href="#ch14" class="nav-link" onclick="closeSidebar()"><span class="nav-num">15</span>Pozitivni Review-i</a></li>
+<li><a href="#pms" class="nav-link" onclick="closeSidebar()"><span class="nav-num">16</span>PMS i Channel Manager</a></li>
+<li><a href="#ch15" class="nav-link" onclick="closeSidebar()"><span class="nav-num">17</span>Upravljanje Finansijama</a></li>
+<li><a href="#ch16" class="nav-link" onclick="closeSidebar()"><span class="nav-num">18</span>Rezime i Sljedeći Koraci</a></li></ul>
+  </nav>
+  <main class="main">
+    <section class="chapter" id="ch1">
+  <div class="ch-cover" style="background:#0F2F61">
+    <div class="ch-cover-num" style="color:#FF6700">POGLAVLJE 01</div>
+    <h2 class="ch-cover-title">Šta je Airbnb hosting i zašto je toliko popularan?</h2>
+    
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">UVOD</p>
+<div class="slide-deco">Šta je Airbnb hosting i zašto je popularan?</div>
+<p class="slide-body">Ako tražiš način da zaradiš dodatni novac, Airbnb hosting je super opcija koju vrijedi probati. Airbnb je online platforma koja povezuje putnike s domaćinima koji žele iznajmiti svoj dom ili slobodnu sobu. Kao domaćin, možeš zaraditi tako što ćeš svoj prostor ponuditi gostima koji traže udobnu i povoljnu alternativu hotelima.</p>
+<p class="slide-body">Airbnb je osnovan 2008. godine i od tada je postao globalni fenomen. Sa više od 7 miliona oglasa u preko 220 zemalja, Airbnb je najveća platforma za dijeljenje smještaja na svijetu. Njegov uspjeh leži u tome što putnicima pruža jedinstvena i autentična iskustva, koja ne bi mogli doživjeti u običnom hotelu.</p></div><div class="slide-content"><p class="slide-body">Jedan od glavnih razloga zašto je Airbnb toliko popularan među putnicima jeste veliki izbor smještaja koji nudi. Bilo da tražiš udoban stan u centru grada ili prostranu vilu u prirodi, gotovo sigurno ćeš pronaći nešto što odgovara tvojim potrebama i budžetu. Osim toga, mnogi Airbnb oglasi nude pogodnosti poput kuhinje, mašine za pranje veša i besplatnog Wi-Fi-ja, što boravak čini još ugodnijim i praktičnijim.</p>
+<p class="slide-body">Za domaćine, Airbnb predstavlja fleksibilan i isplativ način da se zaradi dodatni prihod. Iznajmljujući svoj prostor, možeš zaraditi novac kojim ćeš lakše pokriti troškove ili uštedjeti za nešto veće. A kako Airbnb omogućava da sam postaviš svoje cijene i raspoloživost, ti odlučuješ kada i koliko često želiš primati goste.</p>
+<p class="slide-body">Naravno, Airbnb hosting nije bez izazova. Kao domaćin, treba biti spreman da se nosiš s organizacijom oko smještaja, komunikacijom s gostima i rješavanjem eventualnih problema koji se mogu pojaviti. Ali uz dobru pripremu i pravi pristup, hosting na Airbnb-u može biti i isplativo i vrlo zadovoljavajuće iskustvo.</p>
+<p class="slide-body">U nastavku ovog vodiča pronaći ćeš sve što trebaš znati da postaneš uspješan Airbnb domaćin — od postavljanja svog oglasa do upravljanja finansijama. Bilo da tek počinješ ili već imaš iskustva, nastavi čitati i otkrij kako da izvučeš maksimum iz svog Airbnb hostinga.</p></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch2">
+  <div class="ch-cover" style="background:#FF6700">
+    <div class="ch-cover-num" style="color:#0F2F61">POGLAVLJE 02</div>
+    <h2 class="ch-cover-title">Kreiranje Airbnb Accounta</h2>
+    <div class="ch-cover-sub" style="color:#0F2F61">KREIRANJE AIRBNB ACCOUNTA · I OBJAVLJIVANJE TVOJE NEKRETNINE</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Početak</p>
+<p class="slide-body">Prije nego što počnete sa iznajmljivanjem na Airbnb-u, potrebno je da kreirate nalog i objavite svoj smještaj. Evo vodiča korak po korak kako da započnete:</p>
+<div class="slide-point"><div class="point-title">Kreirajte Airbnb nalog</div><div class="point-body">Da biste kreirali Airbnb nalog, posjetite Airbnb web stranicu ili preuzmite Airbnb aplikaciju iz App Store-a ili Google Play-a. Kliknite na “Sign up” (Registruj se) i unesite svoju e-mail adresu, lozinku i puno ime. Također ćete morati potvrditi svoju e-mail adresu klikom na link koji će vam Airbnb poslati.</div></div>
+<div class="slide-point"><div class="point-title">Dovršite svoj profil</div><div class="point-body">Nakon što ste kreirali nalog, potrebno je da dovršite svoj profil. To uključuje postavljanje profilne fotografije, verifikaciju broja telefona i unos osnovnih informacija o sebi. Dovršen profil pomaže vam da izgradite povjerenje kod potencijalnih gostiju i povećate vjerovatnoću da rezervišu vaš smještaj.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Ali prije objave oglasa - Fotografije: Zašto su važne i kako ih pravilno napraviti</div><div class="point-body">Loše osvijetljene, zamućene ili nedovoljno informativne slike mogu brzo odbiti potencijalne goste, čak i ako je stan u stvarnosti mnogo ljepši. S druge strane, svijetle i pažljivo odabrane fotografije mogu prenijeti dojam čistoće, prostora i udobnosti — i natjerati gosta da klikne “Rezerviši odmah”.<br>Da bi tvoje fotografije izgledale profesionalno, drži se ovih jednostavnih pravila:</div></div>
+<div class="slide-point"><div class="point-title">Prirodno svjetlo je tvoj najbolji prijatelj. Slikaj tokom dana, po mogućnosti kad ima dosta svjetla, ali ne direktnog sunca koje stvara oštre sjene.</div></div>
+<div class="slide-point"><div class="point-title">Uredi prostor prije fotografisanja. Ukloni nepotrebne predmete, poravnaj jastuke, otvori zavjese i dodaj sitnice koje stvaraju toplu atmosferu (poput šoljice kafe, cvijeta ili otvorene knjige).</div></div>
+<div class="slide-point"><div class="point-title">Slikaj iz ugla koji pokazuje širinu prostora. Stani u ugao sobe da uhvatiš što više prostora u kadar.</div></div>
+<div class="slide-point"><div class="point-title">Pokaži sve prostorije. Gosti žele vidjeti dnevni boravak, spavaću sobu, kupatilo, kuhinju, ali i balkon ili pogled s prozora ako ga imaš.</div></div>
+<div class="slide-point"><div class="point-title">Uključi detalje. Slika šolje kafe na stolu, knjige na noćnom ormariću ili uredno složenih peškira može prenijeti osjećaj doma i pažnje.</div><div class="point-body">Hint: Razmisli o profesionalnom fotografu. Ako želiš maksimalno iskoristiti potencijal svog oglasa, profesionalne fotografije su investicija koja se brzo isplati.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Objava oglasa</div><div class="point-body">Da biste objavili svoju nekretninu na Airbnb-u, kliknite na “List Your Space” i pratite korake koji će vas voditi kroz unos detalja o prostoru. Potrebno je da unesete informacije poput tipa smještaja (npr. stan, kuća ili soba), naziva, opisa, broja gostiju koji mogu boraviti te tačne lokacije. Također, u ovom koraku dodajete i fotografije prostora, minimalno 5 za početak.</div></div>
+<div class="slide-point"><div class="point-title">Postavke cijene</div><div class="point-body">Nakon što unesete sve detalje o svom prostoru, potrebno je da podesite cijenu. Nakon unosa cijene, imati ćete mogućnost da ponudite različite discounte za Vaš smještaj: discount za prve tri rezervacije, last minute discount kao i za boravak duži od 7 ili 28 noći. Također u dijelu postavljanja cijena ćete imati opciju za posebnu “Weekend price”, odnosno discount za dane vikenda u odnosu na osnovnu cijenu.</div></div>
+<div class="slide-point"><div class="point-title">Preporuka je da se postavi discount za prve tri rezervacije, kako bi Vaš listing brže zaprimio prve rezervacije.</div></div>
+<div class="slide-point"><div class="point-title">Pregledajte i objavite svoj oglas</div></div>
+<div class="slide-point"><div class="point-title">Nakon što ste postavili cijenu i dostupnost, pregledajte svoj oglas kako biste se uvjerili da je sve ispravno. Možete pregledati kako će oglas izgledati potencijalnim gostima. Ako ste zadovoljni, kliknite na “Publish” (Objavi) kako bi vaš oglas postao aktivan na Airbnb platformi.</div></div></div><div class="slide-conclusion"><p class="slide-body">Zaključak</p>
+<p class="slide-body">Odlično, upravo ste kreirali svoj prvi Airbnb oglas! Naravno, kreiranje oglasa je samo prvi korak. U nastavku ovog vodiča, pokrićemo sve što trebate znati da vaš oglas bude primamljiv, privuče goste i pruži im odlično iskustvo boravka.</p></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch3">
+  <div class="ch-cover" style="background:#0F2F61">
+    <div class="ch-cover-num" style="color:#FF6700">POGLAVLJE 03</div>
+    <h2 class="ch-cover-title">Inside airbnb</h2>
+    <div class="ch-cover-sub" style="color:#FF6700">UPOZNAJTE UNUTRAŠNJOST VAŠEG HOST PROFILA</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">INSIDE AIRBNB</p>
+<div class="slide-deco">Inside Airbnb – Upoznajte unutrašnjost vašeg host profila</div>
+<p class="slide-body">Kada postavite svoj smještaj i objavite oglas, pravi posao tek počinje. Upravljanje vašim oglasom i kalendarom odvija se unutar Inside Airbnb dijela — odnosno, kroz dva glavna taba: Listing i Calendar. Ova dva taba su “srce” svakog Airbnb profila domaćina.</p>
+<p class="slide-body">Kroz njih možete ažurirati sve informacije o svom prostoru, podešavati cijene, pratiti rezervacije, te održavati oglas profesionalnim i ažurnim.</p>
+<p class="slide-body">Pripremite se na malo duži Chapter, ali je bitno biti upoznat i ispravno upravljati sa funkcionalnostima Airbnb account-a :)</p></div><div class="slide-content"><div class="slide-point"><div class="point-title">Listings (Oglasi)</div><div class="point-body">Kada u glavnom meniju kliknete na Listings, otvorit će vam se lista svih nekretnina koje ste dodali na svoj Airbnb nalog.<br>Ako imate više apartmana, ovdje ćete ih sve vidjeti, a klikom na bilo koji oglas ulazite u detaljni pregled i uređivanje tog prostora.<br>Ovo je mjesto gdje uređujete sve osnovne informacije o svom smještaju — od fotografija i opisa, do pravila kuće i politike otkazivanja.<br>U nastavku su objašnjene sve sekcije koje se nalaze unutar pojedinačnog oglasa:</div></div>
+<div class="slide-point"><div class="point-title">1. Photos (Fotografije)</div><div class="point-body">Ovdje možete dodati, izbrisati ili promijeniti redoslijed fotografija.<br>Klikom na „Add Photos“ dodajete nove slike prostora.<br>Preporučuje se da dodate najmanje 10 kvalitetnih fotografija koje prikazuju sve prostorije i detalje.</div></div>
+<div class="slide-point"><div class="point-title">2. Listing Title (Naziv oglasa)</div><div class="point-body">Naziv je prva stvar koju gosti vide.<br>Trebao bi biti kratak, jasan i privlačan – do 50 karaktera.<br>Npr. “Modern Apartment with City View” ili “Udoban stan blizu Baščaršije”.<br>Ovdje možete mijenjati naziv u bilo kojem trenutku.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">3. Property Type (Vrsta smještaja)</div><div class="point-body">Ovdje birate tip objekta koji iznajmljujete.<br>Možete birati između opcija poput: Entire place (cijeli prostor), Private room (privatna soba) ili Shared room (zajednička soba).<br>Takođe birate i vrstu objekta: stan, kuća, vila, apartman, studio, itd.<br>Ova informacija pomaže gostima da odmah znaju šta tačno rezervišu.</div></div>
+<div class="slide-point"><div class="point-title">4. Number of Guests (Broj gostiju)</div><div class="point-body">U ovom dijelu unosite maksimalan broj osoba koje smještaj može primiti.<br>Informacije o broju gostiju direktno utiču na to kako se vaš oglas prikazuje u pretrazi.</div></div>
+<div class="slide-point"><div class="point-title">5. Description (Opis smještaja)</div><div class="point-body">Opis je vaša prilika da “prodate” iskustvo boravka.<br>U nekoliko rečenica (max 500 karaktera) predstavite prostor, lokaciju i ono što ga čini posebnim.</div></div>
+<div class="slide-point"><div class="point-title">Više o description ćemo imati u narednoj sekciji.</div></div>
+<div class="slide-point"><div class="point-title">6. Amenities (Sadržaji)</div><div class="point-body">Ovdje označavate sve pogodnosti koje nudite gostima:<br>Od osnovnog sadržaja do kuhinjskog, kupatila...<br>Ovo je vrlo važno jer gosti često koriste filtere u pretrazi prema sadržajima.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">7. Accessibility Features (Pristupačnost)</div><div class="point-body">Ako vaš smještaj ima sadržaje prilagođene osobama s invaliditetom, ovdje ih unosite.<br>To može uključivati, ulaz bez stepenica, široka vrata, tuš bez praga, pristup liftu<br>Ova sekcija je bitna za goste kojima su potrebne posebne prilagodbe.</div></div>
+<div class="slide-point"><div class="point-title">8. Location (Lokacija)</div><div class="point-body">U ovom dijelu unosite tačnu adresu, te također možete locirati Vaš smještaj kroz mapu.</div></div>
+<div class="slide-point"><div class="point-title">Gosti mogu vidjeti samo približnu lokaciju (radi privatnosti), a tačna adresa se otkriva tek nakon rezervacije ili možete postaviti da odmah vide tačnu lokaciju, i prije same rezervacije.</div></div>
+<div class="slide-point"><div class="point-title">9. Co-host (Su-domaćin)</div><div class="point-body">Ako imate osobu koja vam pomaže oko gostiju ili održavanja, ovdje je možete dodati kao co-host.<br>Co-host može pomoći s porukama, čišćenjem, check-inom i postavkama oglasa (ovisno o dozvolama koje dodijelite).</div></div>
+<div class="slide-point"><div class="point-title">10. Instant Book (Trenutna rezervacija)</div><div class="point-body">Ova opcija omogućava gostima da rezervišu odmah, bez vašeg odobrenja. Napomena je da ukoliko koristite PMS (Property mangement software) Instant booking je mandatoran.<br>Prednost: više rezervacija i bolja vidljivost oglasa.</div></div>
+<div class="slide-point"><div class="point-title">Također, možete postaviti uslove za instant booking, npr. da gosti moraju imati verifikovan profil ili dobre recenzije.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">11. House Rules (Pravila kuće)</div><div class="point-body">Ovdje unosite osnovna pravila za goste kao što su: Nema pušenja, nema zabava, kućni ljubimci dozvoljeni / nisu dozvoljeni.<br>Jasna pravila pomažu u izbjegavanju nesporazuma i čine boravak ugodnijim za obje strane.</div></div>
+<div class="slide-point"><div class="point-title">12. Guest Safety (Sigurnosne informacije)</div><div class="point-body">Ovdje unosite informacije o sigurnosnim elementima u vašem prostoru kao što su; dimni alarm, aparat za gašenje požara, prva pomoć, evakuacijski izlaz.<br>Sve ove stavke doprinose povjerenju i sigurnosti gostiju.</div></div>
+<div class="slide-point"><div class="point-title">13. Cancellation Policy (Politika otkazivanja)</div><div class="point-body">Ovdje birate kako se postupa u slučaju otkazivanja rezervacije:<br>Flexible (Fleksibilna) – gost može otkazati i dobiti puni povrat nekoliko dana prije dolaska.<br>Moderate (Umjerena) – djelomičan povrat ako otkaže u određenom roku.<br>Strict (Stroga) – povrat samo ako se otkaže vrlo rano.<br>Birajte prema svom stilu poslovanja i sezoni — fleksibilne opcije često privlače više rezervacija.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Calendar — Postavke dostupnosti i cijena</div><div class="point-body">Kada kliknete na Calendar u glavnom meniju Airbnb naloga, otvara se pregled svih vaših aktivnih listinga (oglasa).<br>Ovdje možete pratiti raspoloživost, rezervacije i cijene za svaku nekretninu.</div></div>
+<div class="slide-point"><div class="point-title">Glavni pregled (početna stranica kalendara)</div><div class="point-body">Na početnoj stranici kalendara prikazuje se tabela s vašim oglasima i datumima.<br>Svaki red predstavlja jedan listing, dok kolone prikazuju dane u mjesecu.<br>Na ovom ekranu možete vidjeti:<br>✅ Zauzete datume (označene u boji – najčešće s oznakom rezervacije i imenom gosta)<br>🕓 Slobodne datume (bijeli ili sivi kvadrati)<br>💰 Cijene po noćenju za svaki dan — prikazane su direktno ispod datuma<br>🔄 Blokirane datume – ako ste ručno zatvorili period (npr. za renoviranje ili lično korištenje stana)<br>Klikom na određeni datum unutar kalendara otvara se mali prozor gdje možete:<br>Promijeniti cijenu za taj dan<br>Blokirati ili otključati datum<br>Vidjeti detalje rezervacije ako je zauzet<br>📌 Savjet: Ako imate više oglasa, koristite filtere s lijeve strane da prikažete samo određene objekte.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">1. Availability (Dostupnost)</div><div class="point-body">Ovdje definišete kada je vaš prostor dostupan i pravila za rezervacije.<br>Glavne opcije uključuju:<br>Default availability – da li je prostor otvoren za rezervacije ili zatvoren po defaultu<br>Advance notice – koliko dana unaprijed gost mora rezervisati<br>Preparation time – broj dana pauze između dvije rezervacije (npr. 1 dan za čišćenje)<br>Minimum stay i Maximum stay – koliko noći minimalno ili maksimalno gost može rezervisati<br>Booking window – koliko mjeseci unaprijed se mogu praviti rezervacije<br>📌 Savjet: Za početak, preporučuje se minimalni boravak od 2 noći i bez dužih blokada, kako biste dobili više rezervacija.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">2. Pricing settings (Postavke cijena)</div><div class="point-body">Ovdje određujete osnovne i dodatne cijene koje se primjenjuju na vaš listing.<br>Base price (Osnovna cijena)<br>Cijena po noćenju koja se primjenjuje na sve datume osim ako ručno ne postavite drugačije.<br>To je početna tačka za dinamičko formiranje cijena.<br>Weekly discount (Sedmični popust)<br>Postotak popusta koji gosti dobijaju ako rezervišu 7 ili više noći.<br>📌 Npr. 10% popusta za sedmični boravak.<br>Promotions (Promocije)<br>Privremeni popusti ili akcije za određene datume (npr. “Last-minute deal” ili “Early bird discount”).<br>📌 Airbnb ih često automatski predlaže da bi povećao broj rezervacija.<br>Additional charges (Dodatni troškovi)<br>Ovdje postavljate dodatne naknade, kao što su:<br>Cleaning fee (naknada za čišćenje)<br>Extra guest fee (doplata za dodatnog gosta nakon određenog broja)<br>Service fee – automatski dodaje Airbnb, vi je ne određujete ručno<br>📌 Savjet: Uvijek uračunajte troškove čišćenja, ali ne pretjerujte – previsoka naknada može odvratiti kratke boravke.</div></div></div><div class="slide-conclusion"><p class="slide-body">Zaključak</p>
+<div class="slide-point"><div class="point-title">Sekcije Listings i Calendar čine srce svakog Airbnb naloga.</div><div class="point-body">Kroz Listings postavljate identitet vašeg prostora — njegov izgled, opis, pravila i sve što ga čini posebnim. To je mjesto gdje kreirate prvi dojam i gdje potencijalni gosti odlučuju da li je vaš smještaj pravi izbor za njih. Svaka riječ, fotografija i postavka doprinose tome da vaš oglas izgleda profesionalno i privlačno.<br>S druge strane, Calendar je vaša komandna tabla. Tu upravljate realnim poslovanjem — određujete cijene, dostupnost i planirate kada je vaš smještaj spreman za nove goste. Pravilno podešene cijene, fleksibilnost u dostupnosti i ažuriran kalendar ključni su za uspješno poslovanje i maksimalnu popunjenost.<br>Zajedno, ove dvije sekcije omogućavaju vam potpunu kontrolu nad vašim Airbnb poslovanjem.</div></div></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch4">
+  <div class="ch-cover" style="background:#FF6700">
+    <div class="ch-cover-num" style="color:#0F2F61">POGLAVLJE 04</div>
+    <h2 class="ch-cover-title">Priprema prostora</h2>
+    <div class="ch-cover-sub" style="color:#0F2F61">APARTMAN SPREMAN ZA GOSTE</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Kada ste objavili svoju nekretninu na Airbnb-u, vrijeme je da je pripremite za dolazak gostiju. Evo nekoliko savjeta kako da stvorite prostor koji je spreman za goste i koji će ostaviti odličan utisak:</p>
+<div class="slide-point"><div class="point-title">Očistite i uklonite višak stvari</div><div class="point-body">Prije dolaska prvih gostiju, pobrinite se da je vaš prostor temeljito očišćen i bez nereda. Očistite prašinu, usisajte i prebrišite sve površine, te uklonite lične predmete koji ne bi trebali biti izloženi. Gosti izuzetno cijene uredan i organizovan prostor, zato odvojite vrijeme da sve bude besprijekorno.</div></div>
+<div class="slide-point"><div class="point-title">Obezbijedite osnovne potrepštine</div><div class="point-body">Vaš smještaj treba da sadrži sve osnovne potrepštine koje su gostima potrebne tokom boravka. To uključuje čiste peškire i posteljinu, toaletne potrepštine poput sapuna i šampona, kao i osnovne kuhinjske stvari poput šerpi, tava i pribora za jelo. Obezbjeđivanjem ovih sitnica, gosti će se osjećati ugodno, opušteno i kao kod kuće.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Dodajte lični pečat</div><div class="point-body">Kako bi se vaši gosti osjećali još dobrodošlije, razmislite o dodavanju ličnih detalja u svoj prostor. To može uključivati svježe cvijeće, welcome korpu sa grickalicama i pićem, ili vodič kroz lokalno područje. Takvi mali detalji često čine veliku razliku i pomažu u stvaranju nezaboravnog iskustva za vaše goste.</div></div>
+<div class="slide-point"><div class="point-title">Provjerite Wi-Fi i tehnologiju</div><div class="point-body">U današnjem povezanom svijetu, većina gostiju očekuje pouzdan Wi-Fi i osnovne tehnološke sadržaje poput televizora ili streaming servisa. Provjerite da je vaša Wi-Fi mreža stabilna i brza, te testirajte TV i druge uređaje kako biste bili sigurni da sve radi ispravno prije dolaska gostiju.</div></div>
+<div class="slide-point"><div class="point-title">Postavite jasna pravila kuće</div><div class="point-body">Kako biste izbjegli nesporazume ili nejasnoće, važno je kreirati jasna pravila kuće. Ona mogu uključivati upute o buci, pušenju ili boravku kućnih ljubimaca. Komunicirajte ova pravila jasno i unaprijed, kako bi gosti znali šta se od njih očekuje tokom boravka.</div></div></div><div class="slide-conclusion"><p class="slide-body">Zaključak</p>
+<p class="slide-body">Prateći ove savjete, možete pripremiti prostor koji će biti spreman za goste i ostaviti snažan pozitivan utisak. Zapamtite, ugodan i dobrodošao prostor ključ je za dobijanje pozitivnih recenzija i ponovnih rezervacija.</p>
+<p class="slide-body">U narednom poglavlju govorit ćemo o tome kako postaviti pravu cijenu za vaš smještaj.</p></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch5">
+  <div class="ch-cover" style="background:#0F2F61">
+    <div class="ch-cover-num" style="color:#FF6700">POGLAVLJE 05</div>
+    <h2 class="ch-cover-title">Postavljanje Cijene</h2>
+    <div class="ch-cover-sub" style="color:#FF6700">KAKO POSTAVITI ISPRAVNU CIJENU ZA VAŠ SMJEŠTAJ</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Postavljanje prave cijene za tvoj Airbnb oglas može biti pravi izazov. Važno je da cijena pokriva sve troškove i donese zaradu, ali da istovremeno ne bude previsoka u odnosu na konkurenciju.</p>
+<p class="slide-body">Evo nekoliko savjeta koji ti mogu pomoći da postaviš idealnu cijenu za svoj smještaj:</p>
+<div class="slide-point"><div class="point-title">Istražite konkurenciju</div><div class="point-body">Jedan od najboljih načina da odrediš cijenu za svoj Airbnb oglas je da proučiš konkurenciju. Pogledaj druge oglase u tvojoj oblasti koji su slični po veličini, lokaciji i sadržajima. Tako ćeš dobiti dobar uvid u to koliko drugi domaćini naplaćuju i moći ćeš postaviti konkurentnu cijenu.</div></div>
+<div class="slide-point"><div class="point-title">Uzmite u obzir svoje troškove</div><div class="point-body">Kada određuješ cijenu, važno je da računaš na sve svoje troškove. To uključuje kredit ili kiriju, režije, čišćenje i sve ostale troškove povezane sa iznajmljivanjem. Cijena koju postaviš mora pokriti ove troškove i omogućiti ti zaradu.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Prilagođavaj cijenu prema potražnji</div><div class="point-body">Možeš mijenjati cijenu u zavisnosti od potražnje. Ako imaš puno interesa i rezervacija, možeš podići cijenu. S druge strane, ako ti je teško privući goste, razmisli o sniženju cijene kako bi tvoj oglas bio privlačniji potencijalnim gostima.</div></div>
+<div class="slide-point"><div class="point-title">Budi fleksibilan</div><div class="point-body">Zapamti da cijena nije fiksna. Možeš je mijenjati tokom vremena, prateći promjene u potražnji, sezoni ili druge faktore. Budi otvoren za eksperimentisanje s različitim strategijama cijena dok ne pronađeš ono što ti najbolje odgovara.</div></div></div><div class="slide-content"><p class="slide-body">Dinamičke cijene</p>
+<div class="slide-point"><div class="point-title">Kao naša preporuka za određivanje cijena, definitivno se ističe PriceLabs jer olakšava upravljanje cijenama i pomaže da maksimalno iskoristite potencijal zarade.</div><div class="point-body">PriceLabs je alat za dinamičko određivanje cijena namijenjen vlasnicima i menadžerima smještaja na platformama poput Airbnb-a, Booking.com-a i drugih PMS sistema. Njegova glavna svrha je da automatski prilagođava cijene vašeg smještaja u zavisnosti od potražnje, sezone, događaja, konkurencije i brojnih drugih faktora.</div></div>
+<div class="slide-point"><div class="point-title">Što se tiče opcija plaćanja, PriceLabs nudi dvije mogućnosti: fiksnu mjesečnu pretplatu, koja je pogodna ako želite stabilne troškove, ili proviziju od 1% po svakoj rezervaciji, što može biti idealno ako preferirate da plaćate samo kada ostvarite prihode.</div><div class="point-body">Za razliku od ručnog mijenjanja cijena, PriceLabs koristi algoritme i podatke iz tržišta kako bi pomogao da vaši apartmani uvijek budu konkurentno pozicionirani.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Zašto koristiti PriceLabs?</div></div>
+<div class="slide-point"><div class="point-title">Povećava zaradu – automatski prepoznaje prilike kada potražnja raste (npr. koncerti, praznici, vikendi) i povećava cijenu u skladu s tim.</div></div>
+<div class="slide-point"><div class="point-title">Smanjuje prazne dane – spušta cijenu kada je potražnja manja, kako bi se povećala popunjenost.</div></div>
+<div class="slide-point"><div class="point-title">Štedi vrijeme – umjesto da ručno pratite konkurenciju i mijenjate cijene, sistem to radi samostalno.</div></div>
+<div class="slide-point"><div class="point-title">Integriše se s PMS sistemima i platformama – kao što su Airbnb, Booking.com, i softveri za upravljanje poput Rentlio, Hostaway, Guesty itd.</div></div>
+<div class="slide-point"><div class="point-title">Fleksibilnost i kontrola – domaćin može postaviti minimalne, maksimalne i osnovne cijene, kao i pravila popusta, vikend stopa, minimalni broj noćenja i drugo.</div></div>
+<div class="slide-point"><div class="point-title">Za koga je namjenjen?</div><div class="point-body">PriceLabs je namjenjen za:<br>vlasnike koji žele maksimalnu zaradu bez stalnog praćenja tržišta,<br>agencije koje upravljaju većim brojem apartmana,<br>sve koji žele profesionalni pristup određivanju cijena bez gubitka kontrole nad vlastitim cjenovnikom.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Kako funkcioniše PriceLabs?</div><div class="point-body">PriceLabs koristi kombinaciju podataka u stvarnom vremenu, algoritama i vaših postavki da bi automatski prilagodio cijene vašeg smještaja. Proces se sastoji od nekoliko jednostavnih koraka:</div></div>
+<div class="slide-point"><div class="point-title">1️⃣ Povezivanje sa platformom</div><div class="point-body">Prvi korak je da povežete PriceLabs sa vašim PMS sistemom (Property Management system) npr. Rentlio, Hostaway, Guesty...<br>Jednom kada se poveže, PriceLabs automatski povlači sve potrebne informacije:<br>vaš kalendar,<br>trenutne cijene,<br>rezervacije,<br>raspoloživost.<br>Time dobija potpunu sliku vašeg objekta i može početi s analizom.</div></div>
+<div class="slide-point"><div class="point-title">2️⃣ Postavljanje osnovne (Base) cijene</div><div class="point-body">Osnovna cijena je početna tačka za sve daljnje izračune.<br>Ako je, naprimjer, vaša idealna prosječna cijena 80 EUR po noći, to postavite kao Base Price.<br>PriceLabs zatim koristi taj iznos kao bazu i prilagođava ga gore ili dolje u zavisnosti od potražnje i tržišta.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">3️⃣ Definisanje minimalne i maksimalne cijene</div><div class="point-body">Možete postaviti granice koje sistem ne smije preći.<br>Minimalna cijena (npr. 50 EUR) štiti vas od preniskih iznosa.<br>Maksimalna cijena (npr. 150 EUR) sprečava pretjerane skokove koji bi mogli odbiti goste.</div></div>
+<div class="slide-point"><div class="point-title">4️⃣ Automatska analiza tržišta</div><div class="point-body">PriceLabs konstantno prati:<br>potražnju u vašem području,<br>cijene konkurentskih smještaja,<br>lokalne događaje (koncerte, konferencije, praznike),<br>sezonalnost i dan u sedmici.<br>Na osnovu toga, sistem svaki dan ažurira vaše cijene u kalendaru.</div></div>
+<div class="slide-point"><div class="point-title">5️⃣ Napredna pravila i prilagođavanja</div><div class="point-body">Domaćini mogu precizno prilagoditi pravila, kao što su:<br>Weekend Adjustments – različite cijene za vikende,<br>Last-Minute Discounts – popusti za prazne dane u bliskom terminu,<br>Orphan Day Settings – popunjavanje praznih dana između rezervacija,<br>Seasonal Profiles – unaprijed postavljena pravila za različite mjesece.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">6️⃣ Pregled i odobravanje</div><div class="point-body">PriceLabs omogućava da pregledate sve prijedloge prije nego što se objave.<br>Ako vam se sviđa automatizacija, možete uključiti Auto-Publish, gdje sistem sam ažurira cijene bez potrebe za ručnim odobravanjem.</div></div>
+<div class="slide-point"><div class="point-title">7️⃣ Analitika i izvještaji</div><div class="point-body">Ugrađeni Dashboard prikazuje:<br>prosječnu popunjenost,<br>trendove cijena,<br>performanse u odnosu na tržište,<br>preporuke za poboljšanje.<br>Ovi podaci su izuzetno korisni za donošenje strateških odluka o dugoročnom poslovanju.</div></div>
+<div class="slide-point"><div class="point-title">Savjet: Preporučuje se da kroz „Edit“ opciju postavite minimum stay na 2 noći. Također, u sekciji „Far Out“ možete podesiti da ne primate rezervacije kraće od 4 noći za datume udaljene više od 40 dana.</div><div class="point-body">Ukoliko želite iskoristiti veći potencijal popunjenosti, možete omogućiti i jednonoćne rezervacije, ali samo ako se radi o dolascima u narednih nekoliko dana — što može pomoći u popunjavanju praznih termina u zadnji čas.</div></div></div><div class="slide-conclusion"><p class="slide-body">Zaključak</p>
+<div class="slide-point"><div class="point-title">Prednosti korištenja PriceLabs-a u odnosu na ručno određivanje cijena</div><div class="point-body">Korištenjem PriceLabs-a možeš uštedjeti mnogo vremena i povećati zaradu. Umjesto da stalno ručno mijenjaš cijene i pratiš šta radi konkurencija, sistem automatski analizira potražnju, lokalne događaje i sezonalnost, pa sam predlaže idealnu cijenu za svaku noć.<br>Uz to, možeš postaviti pravila kao što su minimalan broj noćenja, last-minute popusti ili povećanje cijene za kraće boravke – sve prema tvojoj strategiji i ciljevima.<br>Zahvaljujući tome, PriceLabs ti pomaže da bolje iskoristiš svaki termin, povećaš popunjenost i maksimiziraš prihod, a da pritom ne moraš sve raditi ručno.</div></div></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch6">
+  <div class="ch-cover" style="background:#FF6700">
+    <div class="ch-cover-num" style="color:#0F2F61">POGLAVLJE 06</div>
+    <h2 class="ch-cover-title">Kako napisati opis apartmana koji privlači goste</h2>
+    <div class="ch-cover-sub" style="color:#0F2F61">KAKO PRAVIM RIJEČIMA PRIVUĆI PRAVE GOSTE</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><div class="slide-deco">Kako napisati opis apartmana koji privlači goste</div>
+<p class="slide-body">Opis tvog Airbnb oglasa je mnogo više od običnog teksta — to je tvoja prva prilika da “prodaš” svoj prostor gostu. Dobar opis treba biti jasan, iskren i dovoljno zanimljiv da gost odmah može zamisliti boravak kod tebe.</p>
+<p class="slide-body">U nastavku su praktični savjeti kako da napišeš opis koji se izdvaja i privlači prave goste.</p>
+<div class="slide-point"><div class="point-title">Budi konkretan</div><div class="point-body">Nemoj pisati općenito. Fokusiraj se na ono što tvoj apartman čini posebnim.<br>Imaš balkon s pogledom, parking, lift, novu zgradu ili mirno okruženje? Naglasi to.<br>Konkretni detalji pomažu gostima da tačno znaju šta mogu očekivati i zašto bi izabrali baš tvoj smještaj, a ne neki drugi.</div></div>
+<div class="slide-point"><div class="point-title">Koristi opisni jezik</div><div class="point-body">Pokušaj da gost, dok čita opis, vizualno zamisli prostor.<br>Umjesto da napišeš “lijep dnevni boravak”, opiši kako izgleda i kakav je osjećaj boraviti u njemu.<br>Na primjer:<br>„Svijetao dnevni boravak ispunjen prirodnim svjetlom, s udobnim sjedećim dijelom idealnim za opuštanje nakon dana provedenog u gradu.“</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Istakni lokaciju (ali pametno)</div><div class="point-body">Lokacija je često presudan faktor pri rezervaciji.<br>Ne moraš navoditi tačnu adresu, ali je važno istaći šta se nalazi u blizini:<br>restorani i kafići<br>parkovi i šetališta<br>glavne atrakcije<br>dobra povezanost s gradom<br>To gostima daje ideju kako će izgledati njihov boravak i šta mogu raditi u okolini.</div></div>
+<div class="slide-point"><div class="point-title">Navedi tačne informacije</div><div class="point-body">Uvijek piši iskreno i precizno:<br>broj spavaćih soba<br>veličina prostora<br>koje su tačno pogodnosti uključene<br>Tačne informacije smanjuju nesporazume i direktno utiču na bolje recenzije. Gost koji dobije ono što očekuje gotovo uvijek ostavlja pozitivnu ocjenu</div></div>
+<div class="slide-point"><div class="point-title">Koristi ključne riječi</div><div class="point-body">Razmisli kako gosti pretražuju Airbnb.<br>Ako je tvoj smještaj:<br>pet-friendly<br>idealan za porodice<br>moderan, nov, luksuzan<br>— obavezno to jasno napiši u opisu.<br>Ove riječi pomažu da se tvoj oglas bolje rangira u pretrazi, ali i da privuče baš one goste koji traže takav smještaj.</div></div></div><div class="slide-conclusion"><div class="slide-point"><div class="point-title">In Conclusion:</div><div class="point-body">Dobro napisan opis apartmana pomaže ti da privučeš prave goste, postaviš realna očekivanja i dobiješ bolje recenzije. Zapamti, opis je samo jedan dio hosting iskustva — jednako su važni i komunikacija s gostima, sam proces check-ina te način na koji se odnosiš prema gostima tokom njihovog boravka.<br>U sljedećem poglavlju bavit ćemo se komunikacijom s gostima i kako ostaviti odličan prvi utisak već od prve poruke.</div></div></div><div class="slide-content"><p class="slide-body">Jasna i brza komunikacija temelj je dobrog iskustva svakog gosta. Evo ključnih savjeta za kontakt s gostima — prije i tokom boravka:</p>
+<div class="slide-point"><div class="point-title">Odgovori odmah</div><div class="point-body">Kad te gost kontaktira s pitanjem, odgovori što je brže moguće. To pokazuje da si dostupan i pouzdan — i gradi povjerenje od prve poruke. Cilj: odgovor u roku od 24 sata ili manje.</div></div>
+<div class="slide-point"><div class="point-title">Budi jasan i detaljan</div><div class="point-body">Odgovaraj na sva pitanja jasno i konkretno. Pruži sve informacije koje gost treba — to postavlja realna očekivanja i sprječava nesporazume.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Koristi Airbnb Messaging System</div><div class="point-body">Sva komunikacija s gostima treba ići kroz Airbnb platformu. To ostavlja pisani trag svih dogovora i štiti obje strane u slučaju spora.</div></div>
+<div class="slide-point"><div class="point-title">Pošalji check-in upute unaprijed</div><div class="point-body">Prije dolaska gosta, pošalji jasne instrukcije za check-in: kako pristupiti smještaju, kod za ulaz ili lokacija ključa, i sve ostale važne detalje.</div></div>
+<div class="slide-point"><div class="point-title">Provjeri kako gost prolazi</div><div class="point-body">Tokom boravka, povremeno se javi gostu i provjeri ide li sve kako treba. Kratka poruka može spriječiti veće probleme.</div></div>
+<div class="slide-point"><div class="point-title">Budi profesionalan i uljudan</div><div class="point-body">U svakoj komunikaciji s gostom — budi profesionalan, konkretan i uljudan. Poštuj privatnost i brzo reagiraj na svaki upit ili pritužbu.</div></div></div><div class="slide-conclusion"><div class="slide-point"><div class="point-title">Zaključak:</div><div class="point-body">Svaki gost zaslužuje jasnu, brzu i toplu komunikaciju. Dobri odnosi grade se od prve poruke — i upravo tu počinje odlična ocjena.</div></div></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch7">
+  <div class="ch-cover" style="background:#0F2F61">
+    <div class="ch-cover-num" style="color:#FF6700">POGLAVLJE 07</div>
+    <h2 class="ch-cover-title">Upravljanje Rezervacijama</h2>
+    <div class="ch-cover-sub" style="color:#FF6700">KAKO VODITI REZERVACIJE · I OTKAZIVANJA</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><div class="slide-deco">Upravljanje Rezervacijama</div>
+<p class="slide-body">Rezervacije su srce tvog Airbnb biznisa. Evo kako ih voditi profesionalno i bez stresa:</p>
+<div class="slide-point"><div class="point-title">Prihvati ili odbij zahtjev za rezervaciju</div><div class="point-body">Imaš 24 sata da prihvatiš ili odbiješ svaki booking zahtjev. Provjeri profil gosta, ocjene i review-e prije odluke. Ako odbijaš — uvijek navedi razlog.</div></div>
+<div class="slide-point"><div class="point-title">Postavi uvjete rezervacije</div><div class="point-body">Možeš postaviti minimalni broj noćenja ili maksimalni broj gostiju. Navedi te uvjete jasno u opisu listinga — tako izbjegavaš nesporazume i gubiš manje vremena.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Upravljaj otkazivanjima</div><div class="point-body">Ako gost otkaže — primijeni svoju cancellation policy dosljedno. Komuniciraj je jasno u listingu. Ako ti trebaš otkazati — javi gostu odmah i objasni razlog.</div></div>
+<div class="slide-point"><div class="point-title">Ažuriraj kalendar redovito</div><div class="point-body">Drži kalendar ažurnim da izbjegneš dvostruke rezervacije. Blokiraj datume kad smještaj nije dostupan — to čuva tvoj rejting i sprječava komplikacije.</div></div>
+<div class="slide-point"><div class="point-title">Upravljaj rezervacijama u zadnji čas</div><div class="point-body">Za last-minute rezervacije provjeri profil gosta i potvrdi detalje prije prihvatanja. Brzina i pažnja — u jednakim omjerima.</div></div>
+<div class="slide-point"><div class="point-title">Postupaj s no-show gostima</div><div class="point-body">Ako gost ne dođe, i dalje možeš imati pravo na isplatu prema tvojoj cancellation policy. Dokumentiraj sve i slijedi Airbnb procedure.</div></div></div><div class="slide-conclusion"><div class="slide-point"><div class="point-title">Zaključak:</div><div class="point-body">Organizirano vođenje rezervacija štiti prihode i reputaciju. Svaka dobro odrađena rezervacija — od potvrde do odjave — gradi Superhost status.</div></div></div>
+    
+    <div class="slide-content">
+      <div class="slide-point">
+        <div class="point-title">💡 Rezervacije uz PMS API integraciju — šta se mijenja</div>
+        <div class="point-body">Kada je PMS spojen s Airbnb-om putem API integracije, klasična opcija ručnog Accept/Decline najčešće više ne postoji — Airbnb automatski potvrđuje rezervacije na osnovu dostupnosti i unaprijed postavljenih pravila. Kontrola se postiže kroz advance notice, minimalni broj noćenja i ograničenja check-in dana. Saznaj više u <a href="#pms" style="color:#FF6700;font-weight:600">Poglavlju 16 – PMS i Channel Manager</a>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="chapter" id="ch8">
+  <div class="ch-cover" style="background:#FF6700">
+    <div class="ch-cover-num" style="color:#0F2F61">POGLAVLJE 08</div>
+    <h2 class="ch-cover-title">Priprema za Check-In</h2>
+    <div class="ch-cover-sub" style="color:#0F2F61">ŠTA NAPRAVITI PRIJE DOLASKA GOSTIJU</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Check-in je prvi fizički kontakt gosta s tvojim smještajem. Temeljita priprema je osnova za odličan review — evo šta uraditi:</p>
+<div class="slide-point"><div class="point-title">Temeljito očisti smještaj</div><div class="point-body">Usisaj, obrišii prašinu i očisti sve površine. Posebnu pažnju posveti kupaonici i kuhinji. Osiguraj svježe ručnike i posteljinu — svaki put, bez iznimke.</div></div>
+<div class="slide-point"><div class="point-title">Nabavi potrošni materijal</div><div class="point-body">Popuni zalihe svega što gostu treba: toaletni papir, sapun, šampon, kuhinjski pribor i posuđe. Gost ne treba ni za čim juriti.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Provjeri aparate i elektroniku</div><div class="point-body">Testiraj sve: pećnica, frižider, TV, Wi-Fi. Otkloni svaki kvar prije dolaska gosta — ne ostavljaj ništa slučaju.</div></div>
+<div class="slide-point"><div class="point-title">Pripremi Welcome Guide</div><div class="point-body">Napravi kratki vodič za gosta: Wi-Fi lozinka, uputstvo za aparate, kućna pravila. Dodaj preporuke za restorane, atrakcije i trgovine u blizini.</div></div>
+<div class="slide-point"><div class="point-title">Ostavi lični pečat</div><div class="point-body">Sitnica napravi razliku — kratka dobrodošlica, grickalice ili piće. Gost odmah osjeća da je dobrodošao i cijenjen.</div></div>
+<div class="slide-point"><div class="point-title">Potvrdi detalje check-in-a</div><div class="point-body">Dan ranije potvrdi s gostom: sat dolaska, način ulaska, sve što mu treba znati. Jasne instrukcije = miran check-in za obje strane.</div></div></div><div class="slide-conclusion"><div class="slide-point"><div class="point-title">Zaključak:</div><div class="point-body">Dobra priprema znači miran check-in. Gost koji uđe u čist, uredan i dobro opremljen smještaj — piše odličan review.</div></div></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch9">
+  <div class="ch-cover" style="background:#0F2F61">
+    <div class="ch-cover-num" style="color:#FF6700">POGLAVLJE 09</div>
+    <h2 class="ch-cover-title">Doček Gostiju</h2>
+    <div class="ch-cover-sub" style="color:#FF6700">KAKO OSTVARITI ODLIČAN · CHECK-IN ISKUSTVO</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Odličan check-in postavlja temelj za pozitivan boravak. Evo kako dočekati goste i učiniti ih ugodnim od prve minute:</p>
+<div class="slide-point"><div class="point-title">Budi na vrijeme</div><div class="point-body">Stigi na check-in točno na vrijeme — to pokazuje gostima da cijeniš njihovo vrijeme i da si posvećen. Ako kasniš, javi se odmah s novim vremenom dolaska.</div></div>
+<div class="slide-point"><div class="point-title">Pozdravi goste toplo</div><div class="point-body">Dočekaj goste s osmjehom i toplim pozdravom. Predstavi se i pitaj imaju li pitanja. Opuštena atmosfera od prvog trenutka postavlja ton cijelog boravka.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Provedi ih kroz smještaj</div><div class="point-body">Pokaži gostima gdje se šta nalazi: kako rade aparati, gdje su rezervni ručnici i posteljina, Wi-Fi lozinka. Istakni sve važno — izlazi, sigurnosni sistem.</div></div>
+<div class="slide-point"><div class="point-title">Daj lokalne preporuke</div><div class="point-body">Preporuči restorane, atrakcije i dućane. To pokazuje da poznaješ svoju okolinu — i pomaže gostima da maksimalno iskoriste boravak. Mapa ili GPS koordinate su plus.</div></div>
+<div class="slide-point"><div class="point-title">Odgovori na sva pitanja</div><div class="point-body">Odgovaraj strpljivo na svaki upit: check-out procedura, parkiranje, javni prevoz. Ako ne znaš — pronađi odgovor.</div></div>
+<div class="slide-point"><div class="point-title">Ostavi kontakt podatke</div><div class="point-body">Daj gostu tvoj broj ili email za hitne situacije i budi dostupan tokom boravka. Brza reakcija = povjerenje = pet zvjezdica.</div></div></div><div class="slide-conclusion"><div class="slide-point"><div class="point-title">Zaključak:</div><div class="point-body">Odličan check-in ne treba biti komplikovan — budi na vrijeme, budi topao i brzo reagiraj. Gost koji se odmah osjeća dobrodošlim — ostaje zadovoljan.</div></div></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch10">
+  <div class="ch-cover" style="background:#FF6700">
+    <div class="ch-cover-num" style="color:#0F2F61">POGLAVLJE 10</div>
+    <h2 class="ch-cover-title">Pravila Smještaja</h2>
+    <div class="ch-cover-sub" style="color:#0F2F61">JASNA PRAVILA — MIRNO GOSTOPRIMSTVO</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Jasna pravila smještaja temelj su uspješnog hosting-a. Pomažu gostima da znaju šta se od njih očekuje i sprječavaju probleme prije nego nastanu. Evo kako ih postaviti:</p>
+<div class="slide-point"><div class="point-title">Drži to jednostavno</div><div class="point-body">Fokusiraj se na najvažnija pravila — ne preplavi goste dugačkim popisom. Nekoliko jasnih pravila jača je od dvadeset zbunjujućih.</div></div>
+<div class="slide-point"><div class="point-title">Budi specifičan</div><div class="point-body">Jasno navedi šta je dozvoljeno a šta nije: pušenje, kućni ljubimci, zabave. Navedi i posljedice kršenja — naknada za čišćenje ili prijevremeni odlazak.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Komuniciraj pravila jasno</div><div class="point-body">Navedi pravila u opisu listinga i pošalji ih gostu u poruci prije dolaska. Printaj ih i postavi na vidljivo mjesto u smještaju — laminirani karton je praktičan i profesionalan.</div></div>
+<div class="slide-point"><div class="point-title">Budi fleksibilan kad treba</div><div class="point-body">Jasna pravila ne znače krutost. Ako gostu treba kasni check-in ili mala prilagodba — budi spreman na kompromis. Fleksibilnost gradi dobre odnose i dobre ocjene.</div></div>
+<div class="slide-point"><div class="point-title">Primijeni pravila dosljedno</div><div class="point-body">Pravila vrijede za sve goste jednako. Ako dođe do kršenja, reagiraj odmah i profesionalno — naknada, upozorenje ili negativan review.</div></div></div><div class="slide-conclusion"><div class="slide-point"><div class="point-title">Zaključak:</div><div class="point-body">Jasna i razumna pravila smještaja čine boravak ugodnim za sve. Dobar host postavlja granice — ali ih zna i fleksibilno primijeniti kad situacija to zahtijeva.</div></div></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch11">
+  <div class="ch-cover" style="background:#0F2F61">
+    <div class="ch-cover-num" style="color:#FF6700">POGLAVLJE 11</div>
+    <h2 class="ch-cover-title">Čistoća</h2>
+    <div class="ch-cover-sub" style="color:#FF6700">KAKO ODRŽAVATI BESPRIJEKORAN</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Čistoća je jedan od najvažnijih faktora uspješnog Airbnb hosting-a. Gosti dolaze s očekivanjem besprijekornog prostora — evo kako to dosljedno isporučiti:</p>
+<div class="slide-point"><div class="point-title">Napravi raspored čišćenja</div><div class="point-body">Kreiraj plan koji uključuje svakodnevne zadatke (brisanje površina, čišćenje poda) i tjedno ili mjesečno temeljito čišćenje kupaone i pranje posteljine.</div></div>
+<div class="slide-point"><div class="point-title">Osiguraj sredstva za čišćenje</div><div class="point-body">Imaj uvijek pri ruci sve što treba: sredstva za čišćenje, spužve, mikrofiberne krpe. Možeš ostaviti i gostu metlu i krpu za održavanje tokom boravka.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Angažiraj servis za čišćenje</div><div class="point-body">Ako nemaš vremena čistiti sam/sama, angažiraj profesionalnu ekipu. Čišćenje između gostiju bit će konzistentno, pouzdano i bez stresa za tebe.</div></div>
+<div class="slide-point"><div class="point-title">Redovito inspiciraj smještaj</div><div class="point-body">Povremeno provjeri smještaj i uočavaj probleme na vrijeme: uprljana posteljina, oštećenja, kvar na opremi. Sve riješavaj odmah — ne čekaj da gost to primijeti.</div></div>
+<div class="slide-point"><div class="point-title">Potakni goste da pomognu</div><div class="point-body">U pravilima smještaja i welcome guide-u napomeni kako odlagati smeće i gdje ostavljati prljave ručnike. Kratka uputa — manje posla za tebe.</div></div></div><div class="slide-conclusion"><div class="slide-point"><div class="point-title">Zaključak:</div><div class="point-body">Čistoća je osnova povjerenja. Gost koji ulazi u besprijekoran smještaj odmah zna — ovaj host drži do svog posla. To se direktno prevodi u pet zvjezdica.</div></div></div>
+    
+  </div>
+</section>
+<section class="chapter" id="messaging">
+  <div class="ch-cover" style="background:#0F2F61">
+    <div class="ch-cover-num" style="color:#FF6700">POGLAVLJE 12</div>
+    <h2 class="ch-cover-title">Automatske Poruke</h2>
+    <div class="ch-cover-sub" style="color:#FF6700">AIRBNB MESSAGING SISTEM</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="slide-content">
+      <div class="slide-point">
+        <div class="point-title">Zašto su automatske poruke ključne?</div>
+        <div class="point-body">Postavljanje automatskih poruka jedan je od najbitnijih segmenata Airbnb hostinga. Gost uvijek dobiva informacije na vrijeme, bez potrebe da ručno pišeš iste poruke iznova. To smanjuje ukupno komunikacijsko opterećenje i povećava gostovo zadovoljstvo — jer svako pitanje biva anticipirano još prije nego što ga uopće postave.</div>
+      </div>
+      <div class="slide-point">
+        <div class="point-title">4 ključna momenta za automatizaciju</div>
+        <div class="point-body">Airbnb ti omogućava postavljanje automatskih poruka na četiri tačke: odmah po potvrdi rezervacije, dan prije check-ina, dan prije check-outa i dan samog check-outa. Svaka poruka ima jasnu funkciju — zajedno čine kompletno, profesionalno iskustvo za gosta, od rezervacije do odlaska.</div>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="msg-intro">📬 4 predloška poruke — kopiraj i prilagodi svom smještaju</div>
+
+      <div class="msg-card">
+        <div class="msg-card-header">
+          <span class="msg-timing">🟢 Odmah po potvrdi rezervacije</span>
+          <span class="msg-tag">Potvrda rezervacije</span>
+        </div>
+        <div class="msg-bubble">
+<p>Hi [Guest name],</p>
+<p>&nbsp;</p>
+<p>thank you for your reservation! We're excited to host you. We'll be in touch as your check-in time approaches to ensure everything goes smoothly.</p>
+<p>&nbsp;</p>
+<p>If you have any questions in the meantime, feel free to reach out.</p>
+<p>&nbsp;</p>
+<p>Looking forward to welcoming you! 😊</p>
+<p>&nbsp;</p>
+<p>[Your name]</p>
+        </div>
+        <div class="msg-tip">💡 <strong>Savjet:</strong> Ova poruka gradi povjerenje odmah. Gost zna da si aktivan host koji pazi na detalje — to smanjuje anksioznost oko nepoznatog smještaja.</div>
+      </div>
+
+      <div class="msg-card">
+        <div class="msg-card-header">
+          <span class="msg-timing">🔵 Dan prije check-ina</span>
+          <span class="msg-tag">Check-in upute</span>
+        </div>
+        <div class="msg-bubble">
+<p>Hi [Guest name],</p>
+<p>&nbsp;</p>
+<p>tomorrow is the big day — we can't wait to host you! 🏡</p>
+<p>&nbsp;</p>
+<p>Here's everything you need for your arrival:</p>
+<p>&nbsp;</p>
+<p>📍 <strong>Address:</strong> [Full address]<br>
+🕐 <strong>Check-in:</strong> from 15:00h (if arriving earlier, message us)<br>
+🔑 <strong>Access:</strong> Self check-in via key lockbox — code: <strong>[XXXX]</strong><br>
+📶 <strong>WiFi:</strong> Network: [Name] | Password: [Password]</p>
+<p>&nbsp;</p>
+<p>If you have any questions or run into any issues on arrival, message us — we respond quickly!</p>
+<p>&nbsp;</p>
+<p>See you soon! 😊<br>[Your name]</p>
+        </div>
+        <div class="msg-tip">💡 <strong>Savjet:</strong> Šalji dan ranije — ne jutro istog dana. Gost treba vremena da planira dolazak. Uvijek uključi WiFi i kod lockboxa u ovoj poruci, pa nema zaboravljenih pitanja.</div>
+      </div>
+
+      <div class="msg-card">
+        <div class="msg-card-header">
+          <span class="msg-timing">🟡 Dan prije check-outa</span>
+          <span class="msg-tag">Podsjetnik za odlazak</span>
+        </div>
+        <div class="msg-bubble">
+<p>Hi [Guest name],</p>
+<p>&nbsp;</p>
+<p>we hope you're enjoying your stay!</p>
+<p>&nbsp;</p>
+<p>Just a quick reminder that check-out is tomorrow until <strong>10:00h</strong>. When you get a moment, could you please let us know what time you're planning to leave? This helps us coordinate the cleaning and get everything ready for the next guests.</p>
+<p>&nbsp;</p>
+<p>Let us know if you need anything before then — happy to help! 😊</p>
+<p>&nbsp;</p>
+<p>[Your name]</p>
+        </div>
+        <div class="msg-tip">💡 <strong>Savjet:</strong> Pitanje o vremenu odlaska nije napadanje — to je profesionalna koordinacija. Goste to cijene jer vide da si organiziran. Čišćenje se može zakazati tačno, što štedi i novac i živce.</div>
+      </div>
+
+      <div class="msg-card">
+        <div class="msg-card-header">
+          <span class="msg-timing">🔴 Dan check-outa</span>
+          <span class="msg-tag">Zahvala + Review</span>
+        </div>
+        <div class="msg-bubble">
+<p>Hi [Guest name]!</p>
+<p>&nbsp;</p>
+<p>We hope you had a great time staying with us! 😊</p>
+<p>&nbsp;</p>
+<p>If you enjoyed your stay, we'd be super grateful if you could leave us a review — it means a lot and helps others find the right place to stay.</p>
+<p>&nbsp;</p>
+<p>If there's anything we could have done better, we'd truly appreciate hearing your feedback directly — we're always open to improving. No hard feelings, just helpful vibes! 😄</p>
+<p>&nbsp;</p>
+<p>Safe travels and hope to host you again someday!</p>
+<p>&nbsp;</p>
+<p>[Your name]</p>
+        </div>
+        <div class="msg-tip">💡 <strong>Savjet:</strong> Rečenica o direktnom feedbacku je najvažniji dio ove poruke. Suptilno preusmjerava eventualnu kritiku od javnih recenzija ka privatnoj komunikaciji — pa zadržavaš visok rating dok i dalje dobivaš konstruktivne primjedbe.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="chapter" id="ch12">
+  <div class="ch-cover" style="background:#FF6700">
+    <div class="ch-cover-num" style="color:#0F2F61">POGLAVLJE 13</div>
+    <h2 class="ch-cover-title">Rješavanje Problema</h2>
+    <div class="ch-cover-sub" style="color:#0F2F61">KAKO POSTUPATI S ŽALBAMA · I PROBLEMIMA</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Ni savršeno vođen listing neće izbjeći povremene probleme. Žalba gosta, kvar u smještaju, buka susjeda — sve se može desiti. Važno je kako reagiraš:</p>
+<div class="slide-point"><div class="point-title">Reagiraj odmah</div><div class="point-body">Čim gost prijavi problem — javi se. Odlaganje gradi frustraciju. Potvrdi da si primio/la informaciju i reci šta konkretno poduzimаš.</div></div>
+<div class="slide-point"><div class="point-title">Saslušaj gosta</div><div class="point-body">Pažljivo saslušaj žalbu i pokaži razumijevanje. Empatija prema gostu u neugodnoj situaciji često sama po sebi smiruje tenziju i sprječava eskalaciju.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Poduzmi konkretne korake</div><div class="point-body">Odmah riješavaj problem: pokvaren aparat — popravi ili zamijeni; buka susjeda — kontaktiraj nadležne. Konkretna akcija je jedini pravi odgovor.</div></div>
+<div class="slide-point"><div class="point-title">Ponudi rješenje</div><div class="point-body">Ovisno o situaciji, ponudi popust, besplatnu noć ili drugu kompenzaciju. Komuniciraj jasno šta nudиš i provjeri je li gost zadovoljan ishodom.</div></div>
+<div class="slide-point"><div class="point-title">Prati ishod</div><div class="point-body">Nakon rješavanja problema, javi se gostu i provjeri je li sve u redu. Taj korak vraća povjerenje i može spriječiti negativan review.</div></div></div><div class="slide-conclusion"><div class="slide-point"><div class="point-title">Zaključak:</div><div class="point-body">Problemi su test tvog hosting-a. Brza reakcija, empatija i konkretno rješenje — to je razlika između jedne i pet zvjezdica. Svaki problem je prilika da se pokažeš.</div></div></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch13">
+  <div class="ch-cover" style="background:#0F2F61">
+    <div class="ch-cover-num" style="color:#FF6700">POGLAVLJE 14</div>
+    <h2 class="ch-cover-title">Upselling Tvog Smještaja</h2>
+    <div class="ch-cover-sub" style="color:#FF6700">KAKO DODATI VRIJEDNOST I · POVEĆATI PRIHODE</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Kao Airbnb host, možeš ponuditi mnogo više od pukog smještaja. Evo kako povećati vrijednost svog listinga i zaradu:</p>
+<div class="slide-point"><div class="point-title">Ponudi dodatne usluge</div><div class="point-body">Razmisli o dodacima koji olakšavaju boravak: transfer do/od aerodroma, frižider s pićima i grickalicama, pristup teretani ili bazenu. Te usluge odvajaju tvoj listing od konkurencije.</div></div>
+<div class="slide-point"><div class="point-title">Osiguraj premium amenitije</div><div class="point-body">Luksuzna posteljina, kvalitetni toaletni proizvodi, selekcija čajeva i kafa — sitnice koje gost pamti i pominje u review-u. Ulaganje koje se višestruko vraća.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Napravi Welcome Pack</div><div class="point-body">Pripremi za goste paket informacija o lokalnim atrakcijama, restoranima i događanjima. Pokaži da poznaješ grad — gosti to cijene i pamte.</div></div>
+<div class="slide-point"><div class="point-title">Istakni jedinstvene karakteristike</div><div class="point-body">Krovnа terasa, panoramski pogled, dizajnerska kuhinja — sve ovo ide u opis listinga. Posebne karakteristike opravdavaju višu cijenu i privlače specifičan profil gostiju.</div></div>
+<div class="slide-point"><div class="point-title">Ponudi posebne pakete</div><div class="point-body">Romantični vikend, porodični paket s aktivnostima, poslovni paket za kratke posjete — diferenciraj se i privuci goste koji traže jedinstveno iskustvo.</div></div></div><div class="slide-conclusion"><div class="slide-point"><div class="point-title">Zaključak:</div><div class="point-body">Upselling nije o guranju dodatnih usluga — radi se o dodavanju prave vrijednosti na pravom mjestu. Gost koji dobije više nego što je očekivao piše odličan review i vraća se.</div></div></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch14">
+  <div class="ch-cover" style="background:#FF6700">
+    <div class="ch-cover-num" style="color:#0F2F61">POGLAVLJE 15</div>
+    <h2 class="ch-cover-title">Pozitivni Review-i</h2>
+    <div class="ch-cover-sub" style="color:#0F2F61">KAKO POTAKNUTI ZADOVOLJNE GOSTE · DA OSTAVE ODLIČAN REVIEW</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Review-i su najmoćniji alat za rast tvog listinga. Više review-a znači više rezervacija i mogućnost više cijene. Evo kako ih sistematski graditi:</p>
+<div class="slide-point"><div class="point-title">Pružaj odličnu uslugu</div><div class="point-body">Najsigurniji put do pozitivnog review-a — prevaziđi očekivanja gosta. Brzi odgovori, čist smještaj, topli doček. Review piše gost koji je iznenađen na pozitivan način.</div></div>
+<div class="slide-point"><div class="point-title">Komuniciraj jasno</div><div class="point-body">Jasna komunikacija znači manje problema i više zadovoljnih gostiju. Sve što gost treba znati — check-in, pravila, upute — pošalji unaprijed i detaljno.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Traži povratne informacije</div><div class="point-body">Nakon check-out-а, pitaj gosta kako je prošlo i ima li sugestija. Otvorenost prema kritici pokazuje da ti je stalo — i direktno pomaže u napretku.</div></div>
+<div class="slide-point"><div class="point-title">Ostavi lični pečat</div><div class="point-body">Dobrodošlica, boca vina, mali poklon — te sitnice gost pamti i pominje u review-u. Osjećaj da ga cijeniš prelazi se u pet zvjezdica.</div></div>
+<div class="slide-point"><div class="point-title">Pošalji poruku zahvalnosti</div><div class="point-body">Nakon odlaska gosta, pošalji kratku poruku zahvalnosti kroz Airbnb. Zahvali mu se na odabiru tvog smještaja i pozovi ga da ostavi review.</div></div></div><div class="slide-conclusion"><div class="slide-point"><div class="point-title">Zaključak:</div><div class="point-body">Svaki pozitivan review je investicija u tvoj Superhost status i buduće rezervacije. Ne čekaj — sistemski gradi kulturu odličnog gostoprimstva.</div></div></div>
+    
+    <div class="slide-content">
+      <div class="slide-point">
+        <div class="point-title">Kako svaki review utječe na tvoj cijeli Airbnb account</div>
+        <div class="point-body">Svaki review koji dobiješ na bilo kojem listingu ne utječe samo na taj listing — zbrajaju se na razini cijelog tvojeg Airbnb accounta. Ukupan prosjek ocjena, stopa odgovora i stopa otkazivanja vrijede za sve tvoje listinge zajedno. Zbog toga jedan slabiji listing može povući rating cijelog profila, a izvanredno gostoprimstvo na jednom apartmanu podiže ugled svih tvojih smještaja.</div>
+      </div>
+      <div class="slide-point">
+        <div class="point-title">Superhost status — kako ga stjeći i zadržati</div>
+        <div class="point-body">Superhost je najviši status koji Airbnb dodjeljuje hostovima koji dosljedno pružaju izvanredno iskustvo. Da bi ga dobio, moraš istovremeno ispuniti sve četiri kriterije: prosječna ocjena 4,8 ili više, stopa odgovora 90% ili više, stopa otkazivanja ispod 1% i minimalno 10 rezervacija (ili 100 noćenja) u godini.</div>
+      </div>
+      <div class="slide-point">
+        <div class="point-title">Tromjesečni pregled — Airbnb ocjenjuje svakih 90 dana</div>
+        <div class="point-body">Airbnb automatski provjerava performanse svakog hosta jednom u tri mjeseca. Ako u tom trenutku ispunjavaš sve parametre, dobijaš ili zadržavaš Superhost status — i odmah postaje vidljiv na svim tvojim listinzima. Bedž povećava vidljivost u pretrazi, podiže povjerenje gostiju i direktno utječe na broj rezervacija. Kad jednom dostigneš status, trudi se ga zadržati — gubitak je vidljiv i ostavlja trag.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="chapter" id="pms">
+  <div class="ch-cover" style="background:#FF6700">
+    <div class="ch-cover-num" style="color:#0F2F61">POGLAVLJE 16</div>
+    <h2 class="ch-cover-title">PMS i Channel Manager</h2>
+    <div class="ch-cover-sub" style="color:#0F2F61">UPRAVLJAJ VIŠE LISTINGA BEZ STRESA</div>
+  </div>
+  <div class="ch-body">
+
+    <div class="slide-content">
+      <div class="slide-point">
+        <div class="point-title">Šta je PMS i kome je namijenjen</div>
+        <div class="point-body">PMS (Property Management System) je softver koji centralizira upravljanje svim tvojim smještajima na jednom mjestu. Umjesto da ručno usklađuješ kalendare, poruke i cijene po svakoj platformi posebno, PMS to radi automatski — u realnom vremenu. Ako imaš dva ili više listinga, PMS nije luksuz nego nužnost. S jednim listingom možeš funkcionirati bez njega, ali već s dva — ručno upravljanje postaje rizik i gubljenje vremena.</div>
+      </div>
+      <div class="slide-point">
+        <div class="point-title">Zašto je PMS ključan za sprečavanje preklapanja rezervacija</div>
+        <div class="point-body">Jedna od najvećih noćnih mora svakog hosta s više listinga na više platformi je dvostruka rezervacija — gost rezervira isti apartman u isto vrijeme s Airbnb-a i Booking.com-a. PMS channel manager rješava ovaj problem u potpunosti: čim nova rezervacija uđe s bilo koje platforme, dostupnost se automatski ažurira na svim ostalim kanalima u roku od sekundi. Nema više manualnog zatvaranja termina, nema rizika od otkazivanja zbog greške, nema penalizacija od Airbnb-a.</div>
+      </div>
+      <div class="slide-point">
+        <div class="point-title">Kako funkcioniše potvrđivanje rezervacija uz API integraciju</div>
+        <div class="point-body">Kada je PMS spojen s Airbnb-om putem zvanične API integracije, listing prelazi u kategoriju profesionalno upravljanog smještaja. U ovom režimu Airbnb automatski potvrđuje rezervacije — klasična opcija Accept/Decline najčešće <strong>ne postoji</strong>. PMS prima već potvrđenu rezervaciju i odmah ažurira kalendar na svim kanalima. Važno je razumjeti: PMS ne odlučuje o prihvatanju rezervacije — to radi Airbnb na osnovu dostupnosti i pravila koja su unaprijed postavljena u sistemu. Kontrola se vrši kroz ta pravila, a ne kroz ručno odobravanje. Jedina iznimka koja je dostupna je opcija <strong>ručnog odobrenja samo za same-day rezervacije</strong> — sve ostale se automatski potvrđuju.</div>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-point">
+        <div class="point-title">Channel manager — srce svakog PMS sistema</div>
+        <div class="point-body">Osnovna i najvažnija funkcija PMS-a je channel manager — modul koji u realnom vremenu sinkronizira dostupnost i cijene između svih platformi na kojima se listing nalazi: Airbnb, Booking.com, Expedia i direktne rezervacije. Svaka promjena u kalendaru ili cijeni koju napraviš u PMS-u automatski se propagira na sve kanale — bez ručnog ažuriranja na svakoj platformi posebno. Ovo je najefikasniji način da spriječiš dvostruke rezervacije i osiguraš da su informacije uvijek ažurne.</div>
+      </div>
+      <div class="slide-point">
+        <div class="point-title">Pravila rezervacija — kako zadržati kontrolu</div>
+        <div class="point-body">Budući da kod API integracije nema klasičnog ručnog odobravanja, kontrola nad rezervacijama postiže se kroz unaprijed postavljena pravila. Kroz PMS možeš podesiti za svaki listing zasebno: <strong>Advance Notice</strong> — koliko unaprijed gost mora rezervirati (1 dan, 2 dana ili custom cutoff), čime sprječavaš rezervacije na kratko obavještenje; <strong>minimalan i maksimalan broj noćenja</strong>; <strong>ograničenja check-in dana</strong> (npr. zabrana check-ina petkom); te opciju <strong>ručnog odobrenja samo za same-day rezervacije</strong> — praktičan profesionalni kompromis koji zadržava automatizaciju, a daje kontrolu nad logistički zahtjevnim dolascima. Ova pravila se sinkroniziraju s Airbnb-om i primjenjuju automatski.</div>
+      </div>
+      <div class="slide-point">
+        <div class="point-title">Cijena se plaća po listingu</div>
+        <div class="point-body">PMS softver se tipično naplaćuje po listingu — što znači da plaćaš za svaki apartman kojim upravljaš. Ovo je transparentan model: što više listinga imaš, to više plaćaš, ali i više zarađuješ. Za hosta s jednim ili dva listinga, cijena PMS-a lako se pokrije samo jednom spriječenom dvostrukom rezervacijom ili satima ušteđenog ručnog rada svaki tjedan.</div>
+      </div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-point">
+        <div class="point-title">Rentlio Owner App — transparentnost za vlasnike</div>
+        <div class="point-body">Jedan od najvrjednijih detalja Rentlia je aplikacija za vlasnike nekretnina. Ako upravljaš tuđim apartmanima ili ako vlasnik želi biti u toku s poslovanjem, Rentlio nudi poseban vlasnikov pristup putem mobilne aplikacije. Vlasnik može u svakom trenutku vidjeti koje su rezervacije aktivne, koji su termini slobodni, koji su prihodi ostvareni — bez da ti svaki dan šalje poruke s pitanjima. Transparentnost gradi povjerenje, a povjerenje gradi dugoročnu suradnju.</div>
+      </div>
+      <div class="slide-point">
+        <div class="point-title">Naša preporuka: Rentlio</div>
+        <div class="point-body">Za hostove na Balkanu, posebno u BiH, Hrvatskoj i Srbiji, naša preporuka je <strong>Rentlio</strong> — PMS koji je razvijen specifično za naše tržište. Podržava lokalne zakonske i porezne zahtjeve, zvanično je integriran s Airbnb-om i Booking.com-om, te ima intuitivno sučelje na regionalnom jeziku. Ako upravljaš s više od jednog apartmana, Rentlio će ti uštedjeti sate svaki tjedan, eliminirati greške koje nastaju ručnim upravljanjem i dati ti profesionalnu kontrolu nad cijelim poslovanjem — s jednog ekrana.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="chapter" id="ch15">
+  <div class="ch-cover" style="background:#0F2F61">
+    <div class="ch-cover-num" style="color:#FF6700">POGLAVLJE 17</div>
+    <h2 class="ch-cover-title">Upravljanje Finansijama</h2>
+    <div class="ch-cover-sub" style="color:#FF6700">KAKO PRATITI · PRIHODE I RASHODE</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Finansijska disciplina je temelj profitabilnog hosting-a. Praćenje prihoda i rashoda omogućava ti informirane odluke i kontrolu rasta:</p>
+<div class="slide-point"><div class="point-title">Vodi detaljnu evidenciju</div><div class="point-body">Bilježi sve prihode i rashode: prihodi od najma, naknade za čišćenje, troškovi popravki, porezi, osiguranje. Precizna evidencija = jasna slika profitabilnosti.</div></div>
+<div class="slide-point"><div class="point-title">Odvoji dio zarade za poreze</div><div class="point-body">Kao Airbnb host, odgovoran/na si za porez na prihode od iznajmljivanja. Redovno odvajaj dio zarade za poreske obaveze i konsultiraj poreznog savjetnika.</div></div></div><div class="slide-content"><div class="slide-point"><div class="point-title">Koristi računovodstveni softver</div><div class="point-body">Programi za računovodstvo mogu se integrisati s Airbnb nalogom i automatski pratiti prihode i rashode. Generišu izvještaje koji daju jasnu finansijsku sliku bez manualne evidencije.</div></div>
+<div class="slide-point"><div class="point-title">Prati profitabilnost redovito</div><div class="point-body">Redovito analiziraj neto profit i usporedi ga s konkurencijom u tvom području. Gdje gubiš novac? Gdje možeš zaraditi više? Podaci ti daju odgovore.</div></div>
+<div class="slide-point"><div class="point-title">Prilagođavaj cijene prema rezultatima</div><div class="point-body">Ako listing nije dovoljno profitabilan, prilagodi cijene: podigni ih u sezoni i za specijalne događaje, spusti u tihim periodima da povećaš popunjenost.</div></div></div><div class="slide-conclusion"><div class="slide-point"><div class="point-title">Zaključak:</div><div class="point-body">Dobro vođene finansije znači da znaš tačno gdje stojiš — i kuda ideš. Hosting je biznis: upravljaj njim s jasnom glavom i preciznim brojevima.</div></div></div>
+    
+  </div>
+</section>
+<section class="chapter" id="ch16">
+  <div class="ch-cover" style="background:#FF6700">
+    <div class="ch-cover-num" style="color:#0F2F61">POGLAVLJE 18</div>
+    <h2 class="ch-cover-title">Rezime i Sljedeći Koraci</h2>
+    <div class="ch-cover-sub" style="color:#0F2F61">ZAKLJUČAK:</div>
+  </div>
+  <div class="ch-body">
+    <div class="slide-content"><p class="slide-body">Čestitamo! Stigao/la si do kraja &#x27;Kompletnog Vodiča za Airbnb Hosting&#x27;. Sada imaš sve što treba da pokreneš ili podigneš svoje hosting iskustvo na viši nivo.</p>
+<p class="slide-body">Pokrili smo osnove: kreiranje Airbnb naloga, objavu smještaja i uređenje prostora. Prošli smo kroz strategije cijena, pisanje opisa koji privlači goste i sve ključne aspekte komunikacije.</p>
+<p class="slide-body">Naučio/la si kako upravljati rezervacijama, pripremiti se za check-in, voditi doček gostiju i postaviti jasna pravila smještaja.</p></div><div class="slide-conclusion"><p class="slide-body">Razgovarali smo i o upsellingu, pozitivnim review-ima i upravljanju finansijama.</p>
+<p class="slide-body">Ključni zaključci iz ovog vodiča:</p>
+<div class="slide-point"><div class="point-title">Uspješan listing zahtijeva pažnju i detalje od prvog dana.</div></div>
+<div class="slide-point"><div class="point-title">Jasna komunikacija je osnova odličnog gostoprimstva.</div></div>
+<div class="slide-point"><div class="point-title">Urednost i čistoća smještaja presudne su za pozitivan review.</div></div>
+<div class="slide-point"><div class="point-title">Upselling i poticanje review-a direktno povećavaju tvoje prihode.</div></div>
+<div class="slide-point"><div class="point-title">Finansijska disciplina i praćenje profitabilnosti vode ka dugoročnom rastu.</div><div class="point-body">Sada je red na tebe. Primijeni savjete iz ovog vodiča, eksperimentiši s cijenama i fokusiraj se na iznimno gostoprimstvo.<br>Uspješan hosting je stalan napredak. Slušaj goste, poboljšavaj listing i budi host kakvog bi i sam/sama volio/voljela imati.</div></div>
+<div class="slide-point"><div class="point-title">Hvala ti što si pročitao/la ovaj vodič. Sretno na hosting putu — najljepši review je gost koji se vrati!</div></div></div>
+    
+  </div>
+</section>
+  </main>
+</div>
+
+<button class="back-top" id="backTop"
+  onclick="window.scrollTo({top:0,behavior:'smooth'})"
+  title="Na vrh">↑</button>
+
+<script>
+const fill    = document.getElementById('progressFill');
+const backTop = document.getElementById('backTop');
+const chapters = document.querySelectorAll('.chapter');
+const navLinks = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+  const h   = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  fill.style.width = pct + '%';
+  backTop.classList.toggle('visible', h.scrollTop > 500);
+
+  // Highlight active chapter in sidebar
+  let active = null;
+  chapters.forEach(sec => {
+    if (sec.getBoundingClientRect().top <= 80) active = sec.id;
+  });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active));
+});
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+</script>
+</body>
+</html>
