@@ -84,6 +84,22 @@ body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);di
 .msg-tip strong{color:var(--navy)}
 .nav-special .nav-num{font-style:normal;font-size:.9rem}
 
+/* SIDEBAR TABS */
+.sidebar-tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.12);flex-shrink:0}
+.stab{flex:1;background:none;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.45);font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:.7rem .4rem;cursor:pointer;transition:color .15s,border-color .15s}
+.stab:hover{color:rgba(255,255,255,.8)}
+.stab.active{color:#fff;border-bottom-color:var(--orange)}
+.sdl-panel{overflow-y:auto;flex:1}
+.sdl-item{display:flex;align-items:center;gap:.9rem;padding:.85rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer;text-decoration:none;transition:background .15s}
+.sdl-item:hover{background:rgba(255,255,255,.06)}
+.sdl-icon{width:38px;height:38px;background:rgba(255,103,0,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0}
+.sdl-info{flex:1;min-width:0}
+.sdl-name{font-size:.8rem;font-weight:700;color:#fff;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sdl-meta{font-size:.68rem;color:rgba(255,255,255,.4);margin-top:.15rem}
+.sdl-btn{font-size:.65rem;font-weight:700;background:var(--orange);color:#fff;border:none;border-radius:4px;padding:.25rem .6rem;cursor:pointer;flex-shrink:0;text-decoration:none;white-space:nowrap}
+.sdl-soon{opacity:.45;cursor:default}
+.sdl-soon .sdl-btn{background:rgba(255,255,255,.15)}
+
 /* BACK TO TOP */
 .back-top{position:fixed;bottom:2rem;right:2rem;background:var(--navy);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;transition:opacity .2s,transform .2s;opacity:0;pointer-events:none}
 .back-top.visible{opacity:1;pointer-events:auto}
@@ -115,9 +131,15 @@ body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);di
 <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
 <div class="layout">
-  <nav class="sidebar" id="sidebar">
-    <div class="sidebar-title">Sadržaj</div>
-    <ul><li><a href="#ch1" class="nav-link" onclick="closeSidebar()"><span class="nav-num">01</span>Šta je Airbnb hosting i zašto je toliko popularan?</a></li>
+  <nav class="sidebar" id="sidebar" style="display:flex;flex-direction:column">
+    <div class="sidebar-tabs">
+      <button class="stab active" id="tabVodic" onclick="showTab('vodic')">📖 Vodič</button>
+      <button class="stab" id="tabDl" onclick="showTab('dl')">⬇ Preuzimanja</button>
+    </div>
+
+    <!-- Panel: Vodič -->
+    <div id="panelVodic" class="sdl-panel">
+      <ul style="list-style:none"><li><a href="#ch1" class="nav-link" onclick="closeSidebar()"><span class="nav-num">01</span>Šta je Airbnb hosting i zašto je toliko popularan?</a></li>
 <li><a href="#ch2" class="nav-link" onclick="closeSidebar()"><span class="nav-num">02</span>Kreiranje Airbnb Accounta</a></li>
 <li><a href="#ch3" class="nav-link" onclick="closeSidebar()"><span class="nav-num">03</span>Inside airbnb</a></li>
 <li><a href="#ch4" class="nav-link" onclick="closeSidebar()"><span class="nav-num">04</span>Priprema prostora</a></li>
@@ -134,9 +156,46 @@ body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);di
 <li><a href="#ch14" class="nav-link" onclick="closeSidebar()"><span class="nav-num">15</span>Pozitivni Review-i</a></li>
 <li><a href="#pms" class="nav-link" onclick="closeSidebar()"><span class="nav-num">16</span>PMS i Channel Manager</a></li>
 <li><a href="#ch15" class="nav-link" onclick="closeSidebar()"><span class="nav-num">17</span>Upravljanje Finansijama</a></li>
-<li><a href="#ch16" class="nav-link" onclick="closeSidebar()"><span class="nav-num">18</span>Rezime i Sljedeći Koraci</a></li>
-<li style="margin-top:.75rem;padding:.5rem 1.5rem 0"><div style="border-top:1px solid rgba(255,255,255,.1)"></div></li>
-<li><a href="#downloads" class="nav-link" onclick="closeSidebar()" style="color:rgba(255,180,60,.85)"><span class="nav-num" style="color:#FF6700">⬇</span>Besplatni Dodaci</a></li></ul>
+<li><a href="#ch16" class="nav-link" onclick="closeSidebar()"><span class="nav-num">18</span>Rezime i Sljedeći Koraci</a></li></ul>
+    </div>
+
+    <!-- Panel: Preuzimanja -->
+    <div id="panelDl" class="sdl-panel" style="display:none;padding:.75rem 0">
+      <div style="font-size:.58rem;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:2px;padding:.25rem 1.25rem .75rem">Dostupno</div>
+      <a href="./airbnb_printable_signs.pptx" download="Airbnb_Printable_Signs.pptx" class="sdl-item">
+        <div class="sdl-icon">📋</div>
+        <div class="sdl-info">
+          <div class="sdl-name">Printable Signs</div>
+          <div class="sdl-meta">PPTX · 14 znakova</div>
+        </div>
+        <span class="sdl-btn">⬇ Preuzmi</span>
+      </a>
+      <div style="font-size:.58rem;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:2px;padding:1rem 1.25rem .75rem">Uskoro</div>
+      <div class="sdl-item sdl-soon">
+        <div class="sdl-icon">📊</div>
+        <div class="sdl-info">
+          <div class="sdl-name">Finansije Tracker</div>
+          <div class="sdl-meta">Excel template</div>
+        </div>
+        <span class="sdl-btn">Uskoro</span>
+      </div>
+      <div class="sdl-item sdl-soon">
+        <div class="sdl-icon">✅</div>
+        <div class="sdl-info">
+          <div class="sdl-name">Check-In Checklist</div>
+          <div class="sdl-meta">PDF printable</div>
+        </div>
+        <span class="sdl-btn">Uskoro</span>
+      </div>
+      <div class="sdl-item sdl-soon">
+        <div class="sdl-icon">📸</div>
+        <div class="sdl-info">
+          <div class="sdl-name">Foto Cheatsheet</div>
+          <div class="sdl-meta">PDF vodič</div>
+        </div>
+        <span class="sdl-btn">Uskoro</span>
+      </div>
+    </div>
   </nav>
   <main class="main">
     <section class="chapter" id="ch1">
@@ -711,6 +770,13 @@ window.addEventListener('scroll', () => {
   });
   navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active));
 });
+
+function showTab(name) {
+  document.getElementById('panelVodic').style.display = name === 'vodic' ? 'block' : 'none';
+  document.getElementById('panelDl').style.display   = name === 'dl'    ? 'block' : 'none';
+  document.getElementById('tabVodic').classList.toggle('active', name === 'vodic');
+  document.getElementById('tabDl').classList.toggle('active',    name === 'dl');
+}
 
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
