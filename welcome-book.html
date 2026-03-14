@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Book — Airbnb Host Template</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0F2F61;
+    --orange: #FF6700;
+    --light: #f4f5f7;
+    --muted: #5a5f6e;
+    --border: #e6e6e4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--light);
+    color: #1a1a2e;
+    padding: 2rem 1rem 3rem;
+  }
+
+  /* EDIT HINT BAR */
+  .edit-hint {
+    max-width: 760px;
+    margin: 0 auto 1.5rem;
+    background: rgba(255,103,0,.1);
+    border: 1px solid rgba(255,103,0,.3);
+    border-radius: 10px;
+    padding: .75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    font-size: .82rem;
+    color: #c45000;
+    font-weight: 600;
+  }
+  .edit-hint span { font-size: 1.1rem; }
+
+  /* DOCUMENT */
+  .doc {
+    max-width: 760px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(15,47,97,.12);
+  }
+
+  /* HEADER */
+  .doc-header {
+    background: var(--navy);
+    padding: 2.5rem 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,103,0,.1);
+    pointer-events: none;
+  }
+  .header-eyebrow {
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: .75rem;
+  }
+  .header-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: .3rem;
+  }
+  .header-title [contenteditable] { color: var(--orange); }
+  .header-sub {
+    font-size: .9rem;
+    color: rgba(255,255,255,.55);
+    margin-top: .4rem;
+  }
+  .header-meta {
+    display: flex;
+    gap: 1.75rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .header-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+  }
+  .header-meta-label {
+    font-size: .58rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.35);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .header-meta-val {
+    font-size: .88rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* GRID */
+  .doc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  @media(max-width:580px){ .doc-grid { grid-template-columns: 1fr; } }
+
+  /* SECTION */
+  .doc-section {
+    padding: 1.75rem 2rem;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  .doc-section:nth-child(even) { border-right: none; }
+  .doc-section.full {
+    grid-column: 1 / -1;
+    border-right: none;
+  }
+  .doc-section:last-child { border-bottom: none; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: .6rem;
+    font-weight: 800;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    border-bottom: 2px solid rgba(255,103,0,.15);
+  }
+
+  /* EDITABLE FIELDS */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    margin-bottom: .85rem;
+  }
+  .field:last-child { margin-bottom: 0; }
+  .field-label {
+    font-size: .65rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .field-val {
+    font-size: .9rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    padding: .3rem .5rem;
+    border-radius: 5px;
+    border: 1.5px dashed transparent;
+    transition: border-color .15s, background .15s;
+    min-width: 80px;
+    display: inline-block;
+    line-height: 1.4;
+  }
+  .field-val:focus {
+    outline: none;
+    border-color: var(--orange);
+    background: rgba(255,103,0,.05);
+  }
+  .field-val[data-placeholder]:empty::before {
+    content: attr(data-placeholder);
+    color: #bbb;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* WIFI HIGHLIGHT */
+  .wifi-block {
+    background: rgba(15,47,97,.05);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--navy);
+  }
+  .wifi-row {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: .6rem;
+  }
+  .wifi-row:last-child { margin-bottom: 0; }
+  .wifi-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--navy);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    flex-shrink: 0;
+  }
+  .wifi-key {
+    font-size: .65rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: .1rem;
+  }
+  .wifi-val {
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--navy);
+    display: block;
+    padding: .1rem .3rem;
+    border-radius: 4px;
+    border: 1.5px dashed transparent;
+    transition: border-color .15s;
+  }
+  .wifi-val:focus { outline: none; border-color: var(--orange); background: rgba(255,103,0,.05); }
+  .wifi-val[data-placeholder]:empty::before { content: attr(data-placeholder); color: #bbb; font-style: italic; font-weight: 400; }
+
+  /* TIMES */
+  .times-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .time-card {
+    flex: 1;
+    min-width: 100px;
+    background: var(--navy);
+    border-radius: 10px;
+    padding: .9rem 1rem;
+    text-align: center;
+  }
+  .time-card-label {
+    font-size: .58rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.45);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: .35rem;
+  }
+  .time-card-val {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #fff;
+    display: block;
+    text-align: center;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255,103,0,.4);
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    padding: .1rem .2rem;
+  }
+  .time-card-val:focus { outline: none; border-bottom-color: var(--orange); }
+
+  /* RULES LIST */
+  .rules-list { list-style: none; }
+  .rules-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: .6rem;
+    padding: .45rem 0;
+    border-bottom: 1px solid #f0f0ef;
+    font-size: .875rem;
+  }
+  .rules-list li:last-child { border-bottom: none; }
+  .rules-list li::before {
+    content: '✓';
+    color: var(--orange);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: .05rem;
+  }
+
+  /* CONTACTS */
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .5rem 0;
+    border-bottom: 1px solid #f0f0ef;
+  }
+  .contact-row:last-child { border-bottom: none; }
+  .contact-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .9rem;
+    flex-shrink: 0;
+  }
+  .contact-label {
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    min-width: 70px;
+  }
+  .contact-val {
+    font-size: .88rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    flex: 1;
+    padding: .15rem .4rem;
+    border-radius: 4px;
+    border: 1.5px dashed transparent;
+    transition: border-color .15s;
+  }
+  .contact-val:focus { outline: none; border-color: var(--orange); background: rgba(255,103,0,.05); }
+  .contact-val[data-placeholder]:empty::before { content: attr(data-placeholder); color: #bbb; font-style: italic; font-weight: 400; }
+
+  /* RECOMMENDATIONS */
+  .rec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .6rem;
+  }
+  @media(max-width:400px){ .rec-grid { grid-template-columns: 1fr; } }
+  .rec-item {
+    background: var(--light);
+    border-radius: 8px;
+    padding: .7rem .9rem;
+    border-left: 3px solid var(--orange);
+  }
+  .rec-type {
+    font-size: .58rem;
+    font-weight: 700;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: .25rem;
+  }
+  .rec-name {
+    font-size: .82rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    display: block;
+    padding: .1rem .2rem;
+    border-radius: 4px;
+    border: 1.5px dashed transparent;
+  }
+  .rec-name:focus { outline: none; border-color: var(--orange); background: rgba(255,103,0,.05); }
+  .rec-name[data-placeholder]:empty::before { content: attr(data-placeholder); color: #bbb; font-style: italic; font-weight: 400; }
+  .rec-detail {
+    font-size: .72rem;
+    color: var(--muted);
+    display: block;
+    margin-top: .15rem;
+    padding: .05rem .2rem;
+    border-radius: 4px;
+    border: 1.5px dashed transparent;
+  }
+  .rec-detail:focus { outline: none; border-color: var(--orange); background: rgba(255,103,0,.05); }
+  .rec-detail[data-placeholder]:empty::before { content: attr(data-placeholder); color: #ccc; font-style: italic; font-weight: 400; }
+
+  /* FOOTER */
+  .doc-footer {
+    background: var(--navy);
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .75rem;
+  }
+  .footer-host {
+    font-size: .82rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.7);
+  }
+  .footer-host span {
+    color: var(--orange);
+    display: block;
+    font-size: .92rem;
+  }
+  .footer-contact {
+    font-size: .78rem;
+    color: rgba(255,255,255,.5);
+    text-align: right;
+  }
+  .footer-contact [contenteditable] {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* PRINT BUTTON */
+  .print-area {
+    max-width: 760px;
+    margin: 1.5rem auto 0;
+    text-align: center;
+  }
+  .print-area button {
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: .88rem;
+    font-weight: 700;
+    padding: .75rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .print-area button:hover { background: #e05a00; }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .edit-hint, .print-area { display: none; }
+    .doc { box-shadow: none; border-radius: 0; }
+    [contenteditable] { border: none !important; background: transparent !important; }
+    .field-val, .wifi-val, .contact-val, .rec-name, .rec-detail { border: none !important; }
+    .time-card-val { border-bottom: 1px solid rgba(255,255,255,.3) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="edit-hint">
+  <span>✏️</span>
+  Click on any orange-dashed field to edit it. When done, click "Print" to save as PDF or print.
+</div>
+
+<div class="doc">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="header-eyebrow">Welcome Book</div>
+    <div class="header-title">
+      Welcome to <span contenteditable="true" data-placeholder="Apartment Name">Your Apartment</span>
+    </div>
+    <div class="header-sub" contenteditable="true" data-placeholder="Short tagline, e.g. Your home away from home in Sarajevo">Your home away from home in Sarajevo</div>
+    <div class="header-meta">
+      <div class="header-meta-item">
+        <span class="header-meta-label">Address</span>
+        <span class="header-meta-val" contenteditable="true" data-placeholder="Full address">Ul. Maršala Tita 12, Sarajevo</span>
+      </div>
+      <div class="header-meta-item">
+        <span class="header-meta-label">Host</span>
+        <span class="header-meta-val" contenteditable="true" data-placeholder="Your name">Your Name</span>
+      </div>
+      <div class="header-meta-item">
+        <span class="header-meta-label">Phone</span>
+        <span class="header-meta-val" contenteditable="true" data-placeholder="+387 61 ...">+387 61 000 000</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-grid">
+
+    <!-- WIFI -->
+    <div class="doc-section">
+      <div class="section-label">📶 WiFi</div>
+      <div class="wifi-block">
+        <div class="wifi-row">
+          <div class="wifi-icon">📡</div>
+          <div>
+            <div class="wifi-key">Network name</div>
+            <span class="wifi-val" contenteditable="true" data-placeholder="WiFi_Name">ApartmentWiFi</span>
+          </div>
+        </div>
+        <div class="wifi-row">
+          <div class="wifi-icon">🔑</div>
+          <div>
+            <div class="wifi-key">Password</div>
+            <span class="wifi-val" contenteditable="true" data-placeholder="password123">password123</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECK-IN / OUT -->
+    <div class="doc-section">
+      <div class="section-label">🕐 Check-in & Check-out</div>
+      <div class="times-row">
+        <div class="time-card">
+          <div class="time-card-label">Check-in from</div>
+          <input class="time-card-val" type="text" value="15:00">
+        </div>
+        <div class="time-card">
+          <div class="time-card-label">Check-out by</div>
+          <input class="time-card-val" type="text" value="10:00">
+        </div>
+      </div>
+      <div style="margin-top:.9rem">
+        <div class="field">
+          <div class="field-label">Key / Access</div>
+          <span class="field-val" contenteditable="true" data-placeholder="e.g. Lockbox at entrance, code: 1234">Lockbox at entrance — code: <strong>1234</strong></span>
+        </div>
+        <div class="field">
+          <div class="field-label">Parking</div>
+          <span class="field-val" contenteditable="true" data-placeholder="e.g. Free street parking, or garage info">Free street parking available nearby</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOUSE RULES -->
+    <div class="doc-section">
+      <div class="section-label">📋 House Rules</div>
+      <ul class="rules-list">
+        <li contenteditable="true">No smoking inside the apartment</li>
+        <li contenteditable="true">No parties or loud music after 22:00</li>
+        <li contenteditable="true">No extra guests not listed on booking</li>
+        <li contenteditable="true">Please remove shoes at the entrance</li>
+        <li contenteditable="true">Checkout: strip the beds and leave towels in the bathroom</li>
+        <li contenteditable="true" data-placeholder="Add your own rule..."></li>
+      </ul>
+    </div>
+
+    <!-- EMERGENCY CONTACTS -->
+    <div class="doc-section">
+      <div class="section-label">🚨 Emergency Contacts</div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:rgba(220,38,38,.1)">🚑</div>
+        <span class="contact-label">Ambulance</span>
+        <span class="contact-val" contenteditable="true">124</span>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:rgba(37,99,235,.1)">🚔</div>
+        <span class="contact-label">Police</span>
+        <span class="contact-val" contenteditable="true">122</span>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:rgba(255,103,0,.1)">🔥</div>
+        <span class="contact-label">Fire dept.</span>
+        <span class="contact-val" contenteditable="true">123</span>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:rgba(15,47,97,.1)">🏠</div>
+        <span class="contact-label">Your Host</span>
+        <span class="contact-val" contenteditable="true" data-placeholder="+387 61 ...">+387 61 000 000</span>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon" style="background:rgba(15,47,97,.1)">🏥</div>
+        <span class="contact-label">Nearest ER</span>
+        <span class="contact-val" contenteditable="true" data-placeholder="Hospital name + address">KCUS, Bolnička 25</span>
+      </div>
+    </div>
+
+    <!-- HOW THINGS WORK -->
+    <div class="doc-section full">
+      <div class="section-label">⚙️ How Things Work</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.7rem">
+        <div class="field" style="background:var(--light);border-radius:8px;padding:.75rem;margin-bottom:0">
+          <div class="field-label">📺 TV</div>
+          <span class="field-val" contenteditable="true" data-placeholder="Instructions...">Press power, use HDMI 1 for streaming. Netflix: see credentials on TV stand.</span>
+        </div>
+        <div class="field" style="background:var(--light);border-radius:8px;padding:.75rem;margin-bottom:0">
+          <div class="field-label">❄️ Air conditioning</div>
+          <span class="field-val" contenteditable="true" data-placeholder="Instructions...">Remote on nightstand. Cool mode: snowflake icon. Please turn off when leaving.</span>
+        </div>
+        <div class="field" style="background:var(--light);border-radius:8px;padding:.75rem;margin-bottom:0">
+          <div class="field-label">🍳 Kitchen</div>
+          <span class="field-val" contenteditable="true" data-placeholder="Instructions...">Induction cooktop — use compatible cookware only. Coffee machine: pods in the drawer.</span>
+        </div>
+        <div class="field" style="background:var(--light);border-radius:8px;padding:.75rem;margin-bottom:0">
+          <div class="field-label">🧺 Washing machine</div>
+          <span class="field-val" contenteditable="true" data-placeholder="Instructions...">Program 2 = cotton 40°. Detergent under the sink. Drying rack on balcony.</span>
+        </div>
+        <div class="field" style="background:var(--light);border-radius:8px;padding:.75rem;margin-bottom:0">
+          <div class="field-label">🗑️ Trash</div>
+          <span class="field-val" contenteditable="true" data-placeholder="Instructions...">Green bin = mixed waste. Blue = recycling. Bins on street level, right side of building.</span>
+        </div>
+        <div class="field" style="background:var(--light);border-radius:8px;padding:.75rem;margin-bottom:0">
+          <div class="field-label" contenteditable="true">🔌 Add more...</div>
+          <span class="field-val" contenteditable="true" data-placeholder="Instructions..."></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOCAL RECOMMENDATIONS -->
+    <div class="doc-section full">
+      <div class="section-label">📍 Local Recommendations</div>
+      <div class="rec-grid">
+        <div class="rec-item">
+          <div class="rec-type">☕ Café</div>
+          <span class="rec-name" contenteditable="true" data-placeholder="Café name">Čajdžinica Džirlo</span>
+          <span class="rec-detail" contenteditable="true" data-placeholder="Distance or tip">5 min walk · Best Bosnian tea</span>
+        </div>
+        <div class="rec-item">
+          <div class="rec-type">🍽️ Restaurant</div>
+          <span class="rec-name" contenteditable="true" data-placeholder="Restaurant name">Asdž</span>
+          <span class="rec-detail" contenteditable="true" data-placeholder="Distance or tip">10 min · Traditional Bosnian food</span>
+        </div>
+        <div class="rec-item">
+          <div class="rec-type">🛒 Grocery</div>
+          <span class="rec-name" contenteditable="true" data-placeholder="Store name">Konzum</span>
+          <span class="rec-detail" contenteditable="true" data-placeholder="Distance or hours">3 min walk · Open until 22:00</span>
+        </div>
+        <div class="rec-item">
+          <div class="rec-type">🚌 Transport</div>
+          <span class="rec-name" contenteditable="true" data-placeholder="Stop or line">Tram stop Baščaršija</span>
+          <span class="rec-detail" contenteditable="true" data-placeholder="Distance or tip">2 min walk · Lines 1, 3</span>
+        </div>
+        <div class="rec-item">
+          <div class="rec-type">🏛️ Must-See</div>
+          <span class="rec-name" contenteditable="true" data-placeholder="Attraction name">Baščaršija</span>
+          <span class="rec-detail" contenteditable="true" data-placeholder="Distance or tip">10 min walk · Old bazaar</span>
+        </div>
+        <div class="rec-item">
+          <div class="rec-type" contenteditable="true">🍕 Add more</div>
+          <span class="rec-name" contenteditable="true" data-placeholder="Name"></span>
+          <span class="rec-detail" contenteditable="true" data-placeholder="Details"></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div class="footer-host">
+      Your host
+      <span contenteditable="true" data-placeholder="Your Name">Your Name</span>
+    </div>
+    <div class="footer-contact">
+      <div contenteditable="true" data-placeholder="+387 61 000 000" style="color:#fff;font-weight:600;font-size:.85rem">+387 61 000 000</div>
+      <div contenteditable="true" data-placeholder="email@example.com" style="color:rgba(255,255,255,.5);font-size:.75rem;margin-top:.2rem">email@example.com</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="print-area">
+  <button onclick="window.print()">🖨️ &nbsp; Print / Save as PDF</button>
+</div>
+
+</body>
+</html>
