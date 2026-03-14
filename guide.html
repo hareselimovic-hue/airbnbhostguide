@@ -141,6 +141,23 @@ body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);di
 .float-res-item-meta{font-size:.63rem;color:rgba(255,255,255,.4);margin-top:.1rem}
 @media(max-width:768px){.float-res{display:none}}
 
+/* MOBILE RESOURCES BUBBLE */
+.mob-res-btn{display:none;position:fixed;bottom:1.4rem;right:1.4rem;z-index:200;width:54px;height:54px;background:var(--orange);border-radius:50%;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(255,103,0,.5);align-items:center;justify-content:center;font-size:1.4rem;transition:transform .2s,box-shadow .2s}
+.mob-res-btn:active{transform:scale(.95)}
+.mob-res-overlay{display:none;position:fixed;inset:0;z-index:198;background:rgba(0,0,0,.45)}
+.mob-res-overlay.show{display:block}
+.mob-res-sheet{position:fixed;bottom:0;left:0;right:0;z-index:199;background:var(--navy);border-radius:18px 18px 0 0;padding:1rem 1rem 2.5rem;transform:translateY(100%);transition:transform .3s ease;box-shadow:0 -6px 40px rgba(0,0,0,.4)}
+.mob-res-sheet.open{transform:translateY(0)}
+.mob-res-handle{width:38px;height:4px;background:rgba(255,255,255,.18);border-radius:2px;margin:0 auto .9rem}
+.mob-res-title{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:2px;margin-bottom:.75rem;text-align:center}
+.mob-res-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.mob-res-link{display:flex;align-items:center;gap:.65rem;background:rgba(255,255,255,.07);border-radius:10px;padding:.8rem .9rem;text-decoration:none;transition:background .15s}
+.mob-res-link:active{background:rgba(255,255,255,.14)}
+.mob-res-link-icon{font-size:1.15rem;flex-shrink:0}
+.mob-res-link-name{font-size:.76rem;font-weight:700;color:#fff;line-height:1.25}
+.mob-res-link-meta{font-size:.62rem;color:rgba(255,255,255,.38);margin-top:.1rem}
+@media(max-width:768px){.mob-res-btn{display:flex}}
+
 /* OVERLAY */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
 
@@ -975,6 +992,36 @@ body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);di
   </button>
 </div>
 
+<!-- Mobile Resources Bubble -->
+<div class="mob-res-overlay" id="mobResOverlay" onclick="closeMobRes()"></div>
+<button class="mob-res-btn" id="mobResBtn" onclick="toggleMobRes()" aria-label="Besplatni resursi">📚</button>
+<div class="mob-res-sheet" id="mobResSheet">
+  <div class="mob-res-handle"></div>
+  <div class="mob-res-title">Besplatni Resursi</div>
+  <div class="mob-res-grid">
+    <a href="https://www.canva.com/design/DAHDZH2BTjo/cAHagNQiJBeKyAgrjN4HWA/view?utm_content=DAHDZH2BTjo&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview" target="_blank" rel="noopener" class="mob-res-link">
+      <span class="mob-res-link-icon">✏️</span>
+      <div><div class="mob-res-link-name">Printable Signs</div><div class="mob-res-link-meta">Canva · 14 znakova</div></div>
+    </a>
+    <a href="./checklists.html" target="_blank" rel="noopener" class="mob-res-link">
+      <span class="mob-res-link-icon">✅</span>
+      <div><div class="mob-res-link-name">Host Checkliste</div><div class="mob-res-link-meta">HTML · 5 checklisti</div></div>
+    </a>
+    <a href="./welcome-book.html" target="_blank" rel="noopener" class="mob-res-link">
+      <span class="mob-res-link-icon">📖</span>
+      <div><div class="mob-res-link-name">Welcome Book</div><div class="mob-res-link-meta">HTML · editabilno</div></div>
+    </a>
+    <a href="./messages.html" target="_blank" rel="noopener" class="mob-res-link">
+      <span class="mob-res-link-icon">💬</span>
+      <div><div class="mob-res-link-name">Messages</div><div class="mob-res-link-meta">5 predložaka</div></div>
+    </a>
+    <a href="./guide.html" download="Airbnb_Hosting_Vodic.html" class="mob-res-link" style="grid-column:1/-1">
+      <span class="mob-res-link-icon">📥</span>
+      <div><div class="mob-res-link-name">Preuzmi Vodič (HTML)</div><div class="mob-res-link-meta">offline verzija</div></div>
+    </a>
+  </div>
+</div>
+
 <button class="back-top" id="backTop"
   onclick="window.scrollTo({top:0,behavior:'smooth'})"
   title="Na vrh">↑</button>
@@ -1008,6 +1055,17 @@ function showTab(name) {
 
 function toggleFloatRes() {
   document.getElementById('floatRes').classList.toggle('open');
+}
+
+function toggleMobRes() {
+  const sheet = document.getElementById('mobResSheet');
+  const overlay = document.getElementById('mobResOverlay');
+  sheet.classList.toggle('open');
+  overlay.classList.toggle('show');
+}
+function closeMobRes() {
+  document.getElementById('mobResSheet').classList.remove('open');
+  document.getElementById('mobResOverlay').classList.remove('show');
 }
 
 function toggleSidebar() {
