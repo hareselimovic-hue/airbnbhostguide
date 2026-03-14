@@ -308,7 +308,7 @@
   <h1>Airbnb <span>Message Templates</span></h1>
   <p>4 gotove poruke za automatizaciju komunikacije s gostima — kopiraj, prilagodi i postavi u Airbnb.</p>
   <div class="header-meta">
-    <div class="header-meta-item"><strong>4</strong> predloška</div>
+    <div class="header-meta-item"><strong>5</strong> predložaka</div>
     <div class="header-meta-item"><strong>EN</strong> engleski jezik</div>
     <div class="header-meta-item"><strong>Copy</strong> jednim klikom</div>
   </div>
@@ -382,8 +382,34 @@ See you soon! 😊
     </div>
   </div>
 
-  <!-- 3. Checkout Reminder -->
-  <div class="timeline-label">3 — Dan prije check-outa</div>
+  <!-- 3. Day After Check-in -->
+  <div class="timeline-label">3 — Dan nakon check-ina</div>
+  <div class="msg-card">
+    <div class="msg-card-header">
+      <span class="msg-timing">
+        <span class="dot" style="background:#a855f7"></span>
+        Day after check-in
+      </span>
+      <span class="msg-tag">Settling In Check</span>
+    </div>
+    <div class="msg-body">
+      <div class="msg-bubble" id="msg3">Hi {guest_first_name},
+
+we hope you've settled in well and are enjoying your stay so far. If there's anything you need or if we can assist in any way, feel free to reach out.
+
+Have a great day! 😊
+
+[Your name]</div>
+      <button class="copy-btn" onclick="copyMsg('msg3', this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy Message
+      </button>
+      <div class="msg-tip">💡 <strong>Savjet:</strong> Kratka, nenametljiva poruka koja gosta podsjeća da si tu. Daje mu prirodnu priliku da prijavi sitni problem dok je još rano — bolja šansa za rješavanje bez negativnog reviewa.</div>
+    </div>
+  </div>
+
+  <!-- 4. Checkout Reminder -->
+  <div class="timeline-label">4 — Dan prije check-outa</div>
   <div class="msg-card">
     <div class="msg-card-header">
       <span class="msg-timing">
@@ -393,7 +419,7 @@ See you soon! 😊
       <span class="msg-tag">Checkout Reminder</span>
     </div>
     <div class="msg-body">
-      <div class="msg-bubble" id="msg3">Hi [Guest name],
+      <div class="msg-bubble" id="msg4">Hi [Guest name],
 
 we hope you're enjoying your stay!
 
@@ -402,7 +428,7 @@ Just a quick reminder that check-out is tomorrow until 10:00h. When you get a mo
 Let us know if you need anything before then — happy to help! 😊
 
 [Your name]</div>
-      <button class="copy-btn" onclick="copyMsg('msg3', this)">
+      <button class="copy-btn" onclick="copyMsg('msg4', this)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2v1"/></svg>
         Copy Message
       </button>
@@ -410,8 +436,8 @@ Let us know if you need anything before then — happy to help! 😊
     </div>
   </div>
 
-  <!-- 4. Thank You + Review -->
-  <div class="timeline-label">4 — Dan check-outa</div>
+  <!-- 5. Thank You + Review -->
+  <div class="timeline-label">5 — Dan check-outa</div>
   <div class="msg-card">
     <div class="msg-card-header">
       <span class="msg-timing">
@@ -421,7 +447,7 @@ Let us know if you need anything before then — happy to help! 😊
       <span class="msg-tag">Thank You + Review</span>
     </div>
     <div class="msg-body">
-      <div class="msg-bubble" id="msg4">Hi [Guest name]!
+      <div class="msg-bubble" id="msg5">Hi [Guest name]!
 
 We hope you had a great time staying with us! 😊
 
@@ -432,7 +458,7 @@ If there's anything we could have done better, we'd truly appreciate hearing you
 Safe travels and hope to host you again someday!
 
 [Your name]</div>
-      <button class="copy-btn" onclick="copyMsg('msg4', this)">
+      <button class="copy-btn" onclick="copyMsg('msg5', this)">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2v1"/></svg>
         Copy Message
       </button>
