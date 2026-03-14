@@ -101,9 +101,45 @@ body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);di
 .sdl-soon .sdl-btn{background:rgba(255,255,255,.15)}
 
 /* BACK TO TOP */
-.back-top{position:fixed;bottom:2rem;right:2rem;background:var(--navy);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;transition:opacity .2s,transform .2s;opacity:0;pointer-events:none}
+.back-top{position:fixed;bottom:2rem;right:2rem;background:var(--navy);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;transition:opacity .2s,transform .2s;opacity:0;pointer-events:none;z-index:150}
 .back-top.visible{opacity:1;pointer-events:auto}
 .back-top:hover{transform:translateY(-2px);background:var(--orange)}
+
+/* HERO SECTION */
+.hero-section{background:var(--navy);border-radius:16px;padding:3.5rem 2.5rem 3rem;margin-bottom:2px;position:relative;overflow:hidden}
+.hero-section::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,103,0,.07);pointer-events:none}
+.hero-section::after{content:'';position:absolute;bottom:-80px;left:20%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.03);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,103,0,.15);color:var(--orange);font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.35rem .9rem;border-radius:20px;margin-bottom:1.25rem}
+.hero-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:1rem}
+.hero-title span{color:var(--orange)}
+.hero-sub{color:rgba(255,255,255,.65);font-size:.95rem;line-height:1.65;max-width:520px;margin-bottom:2rem}
+.hero-stats{display:flex;align-items:center;gap:1.5rem;margin-bottom:2rem;flex-wrap:wrap}
+.hero-stat{display:flex;flex-direction:column;gap:.15rem}
+.hero-stat-num{font-size:1.6rem;font-weight:900;color:#fff;line-height:1}
+.hero-stat-label{font-size:.68rem;font-weight:600;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:1px}
+.hero-stat-divider{width:1px;height:36px;background:rgba(255,255,255,.12)}
+.hero-cta{display:inline-flex;align-items:center;gap:.5rem;background:var(--orange);color:#fff;font-weight:700;font-size:.92rem;padding:.8rem 1.75rem;border-radius:8px;text-decoration:none;transition:background .15s,transform .15s}
+.hero-cta:hover{background:#e05a00;transform:translateY(-1px)}
+.hero-cta span{font-size:1.1rem;transition:transform .15s}
+.hero-cta:hover span{transform:translateX(3px)}
+
+/* FLOATING RESOURCES WIDGET */
+.float-res{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:148;display:flex;align-items:stretch}
+.float-res-tab{background:var(--navy);color:#fff;border:none;cursor:pointer;padding:.9rem .45rem;border-radius:8px 0 0 8px;display:flex;flex-direction:column;align-items:center;gap:.4rem;font-family:'Inter',sans-serif;box-shadow:-3px 0 16px rgba(0,0,0,.2);transition:background .15s}
+.float-res-tab:hover{background:#1a3d73}
+.float-res-tab-icon{font-size:1rem}
+.float-res-tab-label{font-size:.55rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;writing-mode:vertical-lr;transform:rotate(180deg);color:rgba(255,255,255,.7)}
+.float-res-panel{width:0;overflow:hidden;transition:width .25s ease;background:var(--navy);border-radius:8px 0 0 8px;box-shadow:-4px 0 20px rgba(0,0,0,.25)}
+.float-res.open .float-res-panel{width:220px}
+.float-res-inner{width:220px;padding:.75rem 0}
+.float-res-title{font-size:.58rem;font-weight:700;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:2px;padding:.25rem 1rem .6rem}
+.float-res-item{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;text-decoration:none;transition:background .15s;border-bottom:1px solid rgba(255,255,255,.06)}
+.float-res-item:last-child{border-bottom:none}
+.float-res-item:hover{background:rgba(255,255,255,.07)}
+.float-res-item-icon{width:32px;height:32px;background:rgba(255,103,0,.15);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.float-res-item-name{font-size:.78rem;font-weight:700;color:#fff;line-height:1.25}
+.float-res-item-meta{font-size:.63rem;color:rgba(255,255,255,.4);margin-top:.1rem}
+@media(max-width:768px){.float-res{display:none}}
 
 /* OVERLAY */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
@@ -198,6 +234,31 @@ body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);di
     </div>
   </nav>
   <main class="main">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-badge">✦ Sarajevo Property Management</div>
+      <h1 class="hero-title">Kompletan vodič za<br><span>Airbnb hosting</span></h1>
+      <p class="hero-sub">Od postavljanja prvog oglasa do Superhost statusa — sve što trebate znati da upravljate smještajem kao profesionalac.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">18</span>
+          <span class="hero-stat-label">Poglavlja</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">2</span>
+          <span class="hero-stat-label">Besplatna resursa</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">100%</span>
+          <span class="hero-stat-label">Praktični savjeti</span>
+        </div>
+      </div>
+      <a href="#ch1" class="hero-cta">Počni čitati <span>→</span></a>
+    </section>
+
     <section class="chapter" id="ch1">
   <div class="ch-cover" style="background:#0F2F61">
     <div class="ch-cover-num" style="color:#FF6700">POGLAVLJE 01</div>
@@ -752,6 +813,33 @@ body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);di
   </main>
 </div>
 
+<!-- Floating Resources Widget -->
+<div class="float-res" id="floatRes">
+  <div class="float-res-panel" id="floatResPanel">
+    <div class="float-res-inner">
+      <div class="float-res-title">Besplatni Resursi</div>
+      <a href="https://www.canva.com/design/DAHDZH2BTjo/cAHagNQiJBeKyAgrjN4HWA/view?utm_content=DAHDZH2BTjo&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview" target="_blank" rel="noopener" class="float-res-item">
+        <div class="float-res-item-icon">✏️</div>
+        <div>
+          <div class="float-res-item-name">Printable Signs</div>
+          <div class="float-res-item-meta">Canva · 14 znakova</div>
+        </div>
+      </a>
+      <a href="./checklists.html" target="_blank" rel="noopener" class="float-res-item">
+        <div class="float-res-item-icon">✅</div>
+        <div>
+          <div class="float-res-item-name">Host Checkliste</div>
+          <div class="float-res-item-meta">HTML · 5 checklisti</div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <button class="float-res-tab" onclick="toggleFloatRes()" title="Besplatni resursi">
+    <span class="float-res-tab-icon">⬇</span>
+    <span class="float-res-tab-label">Resursi</span>
+  </button>
+</div>
+
 <button class="back-top" id="backTop"
   onclick="window.scrollTo({top:0,behavior:'smooth'})"
   title="Na vrh">↑</button>
@@ -781,6 +869,10 @@ function showTab(name) {
   document.getElementById('panelDl').style.display   = name === 'dl'    ? 'block' : 'none';
   document.getElementById('tabVodic').classList.toggle('active', name === 'vodic');
   document.getElementById('tabDl').classList.toggle('active',    name === 'dl');
+}
+
+function toggleFloatRes() {
+  document.getElementById('floatRes').classList.toggle('open');
 }
 
 function toggleSidebar() {
