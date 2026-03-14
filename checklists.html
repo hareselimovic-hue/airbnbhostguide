@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airbnb Host Checkliste</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+  :root {
+    --navy: #0F2F61;
+    --orange: #FF6700;
+    --navy-light: rgba(15,47,97,.07);
+    --navy-mid: rgba(15,47,97,.15);
+    --text: #1a1a2e;
+    --muted: #5a5f6e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f4f5f7;
+    color: var(--text);
+    padding: 2rem 1rem;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .page-header .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    background: var(--navy);
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: .4rem 1.1rem;
+    border-radius: 20px;
+    margin-bottom: 1.25rem;
+  }
+  .page-header h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.15;
+  }
+  .page-header h1 span { color: var(--orange); }
+  .page-header p {
+    color: var(--muted);
+    margin-top: .6rem;
+    font-size: .95rem;
+  }
+
+  .checklist-grid {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .checklist-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(15,47,97,.09);
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .checklist-header {
+    background: var(--navy);
+    padding: 1.4rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+  }
+  .checklist-header .icon {
+    width: 46px;
+    height: 46px;
+    background: rgba(255,103,0,.18);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .checklist-header h2 {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .checklist-header .subtitle {
+    color: var(--orange);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: .15rem;
+  }
+
+  .checklist-body {
+    padding: 1.5rem 2rem 2rem;
+  }
+
+  .section-title {
+    font-size: .7rem;
+    font-weight: 800;
+    color: var(--orange);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 1.4rem 0 .6rem;
+    padding-bottom: .3rem;
+    border-bottom: 2px solid var(--navy-mid);
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .45rem 0;
+    border-bottom: 1px solid #f0f0ef;
+    cursor: pointer;
+    transition: background .1s;
+    border-radius: 6px;
+    padding-left: .4rem;
+    margin-left: -.4rem;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-item:hover { background: var(--navy-light); }
+
+  .check-item input[type="checkbox"] {
+    margin-top: 2px;
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    accent-color: var(--orange);
+    cursor: pointer;
+  }
+
+  .check-item label {
+    font-size: .88rem;
+    line-height: 1.45;
+    color: var(--text);
+    cursor: pointer;
+    flex: 1;
+  }
+  .check-item input:checked + label {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+
+  .print-btn {
+    display: block;
+    max-width: 860px;
+    margin: 2.5rem auto 0;
+    text-align: center;
+  }
+  .print-btn button {
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: .9rem;
+    font-weight: 700;
+    padding: .8rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .print-btn button:hover { background: #e05a00; }
+
+  @media print {
+    body { background: #fff; padding: .5rem; }
+    .print-btn { display: none; }
+    .checklist-card { box-shadow: none; border: 1px solid #ddd; page-break-after: always; }
+    .checklist-card:last-child { page-break-after: avoid; }
+    .check-item:hover { background: transparent; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="brand">✦ Sarajevo Property Management</div>
+  <h1>Airbnb Host<br><span>Checkliste</span></h1>
+  <p>Kompletne checkliste za profesionalno upravljanje smještajem</p>
+</div>
+
+<div class="checklist-grid">
+
+  <!-- 1. Priprema prostora -->
+  <div class="checklist-card">
+    <div class="checklist-header">
+      <div class="icon">🏠</div>
+      <div>
+        <div class="subtitle">Checklist 1</div>
+        <h2>Priprema Prostora</h2>
+      </div>
+    </div>
+    <div class="checklist-body">
+
+      <div class="section-title">Dubinsko čišćenje</div>
+      <div class="check-item"><input type="checkbox" id="c1"><label for="c1">Obrišite prašinu sa svih površina: namještaj, police i rubovi</label></div>
+      <div class="check-item"><input type="checkbox" id="c2"><label for="c2">Usisajte tepihe i prostirke, ili pometite i operite tvrde podove</label></div>
+      <div class="check-item"><input type="checkbox" id="c3"><label for="c3">Očistite ogledala i prozore</label></div>
+      <div class="check-item"><input type="checkbox" id="c4"><label for="c4">Očistite kupatilo: tuš, WC, lavabo i pod</label></div>
+      <div class="check-item"><input type="checkbox" id="c5"><label for="c5">Očistite kuhinju: aparate, radne površine i posuđe</label></div>
+      <div class="check-item"><input type="checkbox" id="c6"><label for="c6">Očistite sve vanjske prostore: terasu ili balkon</label></div>
+
+      <div class="section-title">Organizovanje prostora</div>
+      <div class="check-item"><input type="checkbox" id="c7"><label for="c7">Uklonite nepotrebne predmete, lične stvari i višak namještaja</label></div>
+      <div class="check-item"><input type="checkbox" id="c8"><label for="c8">Uredno organizujte sve preostale predmete</label></div>
+      <div class="check-item"><input type="checkbox" id="c9"><label for="c9">Osigurajte dovoljno prostora za pohranu gostiju</label></div>
+
+      <div class="section-title">Nabavka neophodnih potrepština</div>
+      <div class="check-item"><input type="checkbox" id="c10"><label for="c10">Dovoljno toaletnog papira, peškira i posteljine za svakog gosta</label></div>
+      <div class="check-item"><input type="checkbox" id="c11"><label for="c11">Osnovne namirnice u kuhinji: kafa, čaj, šećer, so, ulje za kuhanje</label></div>
+      <div class="check-item"><input type="checkbox" id="c12"><label for="c12">Osnovne toaletne potrepštine: sapun, šampon, regenerator</label></div>
+
+      <div class="section-title">Provjera uređaja</div>
+      <div class="check-item"><input type="checkbox" id="c13"><label for="c13">Provjera svih aparata: frižider, šporet, rerna, mašina za sudove</label></div>
+      <div class="check-item"><input type="checkbox" id="c14"><label for="c14">Provjera elektronike: TV i Wi-Fi su ispravni</label></div>
+      <div class="check-item"><input type="checkbox" id="c15"><label for="c15">Provjera klimatizacije i grijanja</label></div>
+
+      <div class="section-title">Lični dodir</div>
+      <div class="check-item"><input type="checkbox" id="c16"><label for="c16">Dodajte osobne detalje: svježe cvijeće, dekorativni jastuci</label></div>
+      <div class="check-item"><input type="checkbox" id="c17"><label for="c17">Pripremite pismo dobrodošlice s važnim informacijama o prostoru</label></div>
+
+    </div>
+  </div>
+
+  <!-- 2. Check-in i komunikacija -->
+  <div class="checklist-card">
+    <div class="checklist-header">
+      <div class="icon">💬</div>
+      <div>
+        <div class="subtitle">Checklist 2</div>
+        <h2>Check-in i Komunikacija</h2>
+      </div>
+    </div>
+    <div class="checklist-body">
+
+      <div class="section-title">Prihvat gostiju</div>
+      <div class="check-item"><input type="checkbox" id="d1"><label for="d1">Detaljne upute za pristup prostoru: šifre, ključevi</label></div>
+      <div class="check-item"><input type="checkbox" id="d2"><label for="d2">Informacije o parkingu i opcijama prijevoza</label></div>
+      <div class="check-item"><input type="checkbox" id="d3"><label for="d3">Kontakt broj ili email dostupan gostima</label></div>
+
+      <div class="section-title">Vaši kontakt podaci</div>
+      <div class="check-item"><input type="checkbox" id="d4"><label for="d4">Način na koji vas gosti mogu kontaktirati u slučaju problema</label></div>
+      <div class="check-item"><input type="checkbox" id="d5"><label for="d5">Pravovremeno odgovaranje na poruke i pozive gostiju</label></div>
+
+      <div class="section-title">Odgovaranje na poruke</div>
+      <div class="check-item"><input type="checkbox" id="d6"><label for="d6">Redovno provjeravajte Airbnb poruke i odgovarajte što je prije moguće</label></div>
+      <div class="check-item"><input type="checkbox" id="d7"><label for="d7">Dostupni ste za pitanja i nedoumice prije, za vrijeme i nakon boravka</label></div>
+
+      <div class="section-title">Plan za hitne slučajeve</div>
+      <div class="check-item"><input type="checkbox" id="d8"><label for="d8">Plan u slučaju nepredviđenih događaja: nestanak struje, oluja</label></div>
+      <div class="check-item"><input type="checkbox" id="d9"><label for="d9">Hitni kontakti lokalnih vlasti ili hitne medicinske službe</label></div>
+
+      <div class="section-title">Lokalne preporuke</div>
+      <div class="check-item"><input type="checkbox" id="d10"><label for="d10">Preporuke restorana, kafića i atrakcija u blizini</label></div>
+      <div class="check-item"><input type="checkbox" id="d11"><label for="d11">Informacije o obližnjim prodavnicama, parkovima i znamenitostima</label></div>
+
+      <div class="section-title">Paket dobrodošlice</div>
+      <div class="check-item"><input type="checkbox" id="d12"><label for="d12">Vodič s važnim informacijama: Wi-Fi lozinka, upute za uređaje</label></div>
+      <div class="check-item"><input type="checkbox" id="d13"><label for="d13">Informacije o lokalnom prijevozi, atrakcijama i pravilima kuće</label></div>
+
+    </div>
+  </div>
+
+  <!-- 3. Udobnost i zadovoljstvo gostiju -->
+  <div class="checklist-card">
+    <div class="checklist-header">
+      <div class="icon">⭐</div>
+      <div>
+        <div class="subtitle">Checklist 3</div>
+        <h2>Udobnost i Zadovoljstvo Gostiju</h2>
+      </div>
+    </div>
+    <div class="checklist-body">
+
+      <div class="section-title">Temperatura prostora</div>
+      <div class="check-item"><input type="checkbox" id="e1"><label for="e1">Podesite temperaturu za ugodnost gostiju</label></div>
+      <div class="check-item"><input type="checkbox" id="e2"><label for="e2">Dodatne deke ili ventilatori dostupni po potrebi</label></div>
+
+      <div class="section-title">Udobna posteljina</div>
+      <div class="check-item"><input type="checkbox" id="e3"><label for="e3">Kvalitetni madrac i jastuci za dobar noćni odmor</label></div>
+      <div class="check-item"><input type="checkbox" id="e4"><label for="e4">Rezervne deke ili jastuci dostupni gostima</label></div>
+
+      <div class="section-title">Lokalne preporuke</div>
+      <div class="check-item"><input type="checkbox" id="e5"><label for="e5">Preporuke restorana, kafića i atrakcija za goste</label></div>
+      <div class="check-item"><input type="checkbox" id="e6"><label for="e6">Informacije o obližnjim prodavnicama i parkovima</label></div>
+
+      <div class="section-title">Dodatne pogodnosti</div>
+      <div class="check-item"><input type="checkbox" id="e7"><label for="e7">Kafa, čaj ili grickalice za goste</label></div>
+      <div class="check-item"><input type="checkbox" id="e8"><label for="e8">Osnovne toaletne potrepštine: sapun, šampon, regenerator</label></div>
+      <div class="check-item"><input type="checkbox" id="e9"><label for="e9">Fen za kosu ili pegla dostupni ako nisu u prostoru</label></div>
+
+      <div class="section-title">Paket dobrodošlice</div>
+      <div class="check-item"><input type="checkbox" id="e10"><label for="e10">Vodič s Wi-Fi lozinkom i uputama za uređaje</label></div>
+      <div class="check-item"><input type="checkbox" id="e11"><label for="e11">Informacije o prijevozi, atrakcijama i pravilima kuće</label></div>
+
+      <div class="section-title">Dostupnost</div>
+      <div class="check-item"><input type="checkbox" id="e12"><label for="e12">Pravovremeno i profesionalno rješavanje nedoumice ili problema gostiju</label></div>
+      <div class="check-item"><input type="checkbox" id="e13"><label for="e13">Kontakt broj ili email za pitanja i nedoumice</label></div>
+
+    </div>
+  </div>
+
+  <!-- 4. Čišćenje i održavanje -->
+  <div class="checklist-card">
+    <div class="checklist-header">
+      <div class="icon">🧹</div>
+      <div>
+        <div class="subtitle">Checklist 4</div>
+        <h2>Čišćenje i Održavanje</h2>
+      </div>
+    </div>
+    <div class="checklist-body">
+
+      <div class="section-title">Čišćenje svih površina</div>
+      <div class="check-item"><input type="checkbox" id="f1"><label for="f1">Sve površine: podovi, radne ploče i stolovi</label></div>
+      <div class="check-item"><input type="checkbox" id="f2"><label for="f2">Prašina s namještaja, prozorskih dasaka i polica</label></div>
+      <div class="check-item"><input type="checkbox" id="f3"><label for="f3">Ogledala i prozori — bez tragova</label></div>
+
+      <div class="section-title">Čišćenje kupatila</div>
+      <div class="check-item"><input type="checkbox" id="f4"><label for="f4">Ribanje WC-a, lavabo i tuš kabine / kade</label></div>
+      <div class="check-item"><input type="checkbox" id="f5"><label for="f5">Pločice i fugne u tušu / kadi</label></div>
+      <div class="check-item"><input type="checkbox" id="f6"><label for="f6">Svježi peškiri i krpe za svakog gosta</label></div>
+
+      <div class="section-title">Pranje posteljine i plahti</div>
+      <div class="check-item"><input type="checkbox" id="f7"><label for="f7">Pranje plahti, jastučnica i pokrivača</label></div>
+      <div class="check-item"><input type="checkbox" id="f8"><label for="f8">Kvalitetni deterdžent — svježe i čisto</label></div>
+      <div class="check-item"><input type="checkbox" id="f9"><label for="f9">Posteljina potpuno osušena prije ponovnog stavljanja</label></div>
+
+      <div class="section-title">Čišćenje kuhinje</div>
+      <div class="check-item"><input type="checkbox" id="f10"><label for="f10">Svi aparati: frižider, šporet, mašina za sudove</label></div>
+      <div class="check-item"><input type="checkbox" id="f11"><label for="f11">Radne ploče i ormarići</label></div>
+      <div class="check-item"><input type="checkbox" id="f12"><label for="f12">Posuđe, pribor za jelo i posude za kuhanje</label></div>
+
+      <div class="section-title">Provjera kvarova</div>
+      <div class="check-item"><input type="checkbox" id="f13"><label for="f13">Pregled svih aparata i elektronike — ispravno funkcionisanje</label></div>
+      <div class="check-item"><input type="checkbox" id="f14"><label for="f14">Provjera curenja ili oštećenja na vodoinstalacijama i strujnim utičnicama</label></div>
+      <div class="check-item"><input type="checkbox" id="f15"><label for="f15">Zamjena pregorjelih žarulja ili pokvarenih predmeta</label></div>
+
+      <div class="section-title">Dezinfekcija</div>
+      <div class="check-item"><input type="checkbox" id="f16"><label for="f16">Dezinfekcija često dodirivanih mjesta: prekidači, kvake, daljinski upravljači</label></div>
+      <div class="check-item"><input type="checkbox" id="f17"><label for="f17">Dezinfekcijsko sredstvo ili maramice za uklanjanje klica i bakterija</label></div>
+
+    </div>
+  </div>
+
+  <!-- 5. Sigurnost gostiju -->
+  <div class="checklist-card">
+    <div class="checklist-header">
+      <div class="icon">🔒</div>
+      <div>
+        <div class="subtitle">Checklist 5</div>
+        <h2>Sigurnost Gostiju</h2>
+      </div>
+    </div>
+    <div class="checklist-body">
+
+      <div class="section-title">Detektori dima i ugljičnog monoksida</div>
+      <div class="check-item"><input type="checkbox" id="g1"><label for="g1">Instalirani detektori dima i ugljičnog monoksida u prostoru</label></div>
+      <div class="check-item"><input type="checkbox" id="g2"><label for="g2">Redovno testiranje detektora — ispravno rade</label></div>
+      <div class="check-item"><input type="checkbox" id="g3"><label for="g3">Zamjena baterija po potrebi</label></div>
+
+      <div class="section-title">Prva pomoć</div>
+      <div class="check-item"><input type="checkbox" id="g4"><label for="g4">Komplet za prvu pomoć dostupan gostima u hitnom slučaju</label></div>
+      <div class="check-item"><input type="checkbox" id="g5"><label for="g5">Komplet lako dostupan i jasno označen</label></div>
+
+      <div class="section-title">Odgovarajuća rasvjeta</div>
+      <div class="check-item"><input type="checkbox" id="g6"><label for="g6">Sva područja prostora dobro osvijetljena: stepenice, hodnici, vanjski prostori</label></div>
+      <div class="check-item"><input type="checkbox" id="g7"><label for="g7">Noćna rasvjeta za goste koji je trebaju</label></div>
+
+      <div class="section-title">Osiguranje prostora</div>
+      <div class="check-item"><input type="checkbox" id="g8"><label for="g8">Sigurnosna brava na svim vanjskim vratima</label></div>
+      <div class="check-item"><input type="checkbox" id="g9"><label for="g9">Svi prozori i vrata se mogu sigurno zaključati</label></div>
+      <div class="check-item"><input type="checkbox" id="g10"><label for="g10">Sigurno mjesto za pohranu vrijednosti gostiju</label></div>
+
+      <div class="section-title">Hitne informacije</div>
+      <div class="check-item"><input type="checkbox" id="g11"><label for="g11">Kontakti hitnih službi: bolnice, policija, vatrogasci</label></div>
+      <div class="check-item"><input type="checkbox" id="g12"><label for="g12">Upute za postupanje u slučaju prirodnih katastrofa</label></div>
+
+      <div class="section-title">Upute za uređaje i elektroniku</div>
+      <div class="check-item"><input type="checkbox" id="g13"><label for="g13">Jasne upute za korištenje svih aparata i elektronike</label></div>
+      <div class="check-item"><input type="checkbox" id="g14"><label for="g14">Upute za postupanje u hitnim slučajevima: nestanak struje, curenje plina</label></div>
+      <div class="check-item"><input type="checkbox" id="g15"><label for="g15">Redovni pregled prostora za sigurnosne opasnosti (labavi kablovi, oštećene rukohvati)</label></div>
+      <div class="check-item"><input type="checkbox" id="g16"><label for="g16">Hitno otklanjanje svih sigurnosnih opasnosti radi sprečavanja nezgoda</label></div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="print-btn">
+  <button onclick="window.print()">🖨️ &nbsp;Printaj Checkliste</button>
+</div>
+
+</body>
+</html>
