@@ -95,6 +95,9 @@ section{padding:5rem 2rem}
 .price-old{font-size:1.3rem;color:rgba(255,255,255,.35);text-decoration:line-through;font-weight:600}
 .price-current{font-size:2.6rem;font-weight:900;color:#fff;line-height:1}
 
+/* PAYPAL */
+.paypal-wrap{margin-top:.5rem}
+
 /* FOOTER */
 footer{background:#091d3d;padding:2rem;text-align:center}
 .footer-brand{font-size:.9rem;color:rgba(255,255,255,.55);margin-bottom:.4rem}
@@ -116,7 +119,7 @@ footer{background:#091d3d;padding:2rem;text-align:center}
 <nav>
   <a href="#" class="nav-logo">Airbnb<span>Vodič</span></a>
   <span class="nav-brand">by <a href="https://www.sarajevopropertymanagement.ba" target="_blank" rel="noopener">Sarajevo Rent &amp; Manage</a></span>
-  <a href="./guide.html" class="nav-cta">Nabavi Vodič →</a>
+  <a href="#nabavi" class="nav-cta">Nabavi Vodič →</a>
 </nav>
 
 <!-- HERO -->
@@ -125,7 +128,7 @@ footer{background:#091d3d;padding:2rem;text-align:center}
   <h1>Kompletan Vodič za<br><span>Airbnb Hosting</span></h1>
   <p class="hero-sub">Sve što trebaš da pokreneš, optimiziraš i skaliraš svoju Airbnb nekretninu — od prvog listinga do Superhost statusa.</p>
   <div class="hero-btns">
-    <a href="./guide.html" class="hero-cta">Nabavi Vodič &nbsp;→</a>
+    <a href="#nabavi" class="hero-cta">Nabavi Vodič &nbsp;→</a>
     <a href="#resursi" class="hero-cta-sec">Šta je uključeno ↓</a>
   </div>
 </section>
@@ -337,7 +340,14 @@ footer{background:#091d3d;padding:2rem;text-align:center}
     <span class="price-old">159 KM</span>
     <span class="price-current">99 KM</span>
   </div>
-  <a href="./guide.html" class="cta-btn">Nabavi Vodič &nbsp;→</a>
+  <div class="paypal-wrap">
+    <style>.pp-THB64W5W4MEYJ{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}</style>
+    <form action="https://www.paypal.com/ncp/payment/THB64W5W4MEYJ" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+      <input class="pp-THB64W5W4MEYJ" type="submit" value="Plati sigurno — 99 KM" />
+      <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" />
+      <section style="font-size:0.75rem;color:rgba(255,255,255,.45);">Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;filter:brightness(0) invert(1);opacity:.6"/></section>
+    </form>
+  </div>
 </section>
 
 <footer>
