@@ -98,6 +98,18 @@ section{padding:5rem 2rem}
 /* PAYPAL */
 .paypal-wrap{margin-top:.5rem}
 
+/* FOR WHOM */
+.for-whom-section{background:#F4F6FB;padding:80px 2rem}
+.for-whom-inner{max-width:1080px;margin:0 auto;text-align:center}
+.for-whom-label{text-transform:uppercase;letter-spacing:.15em;font-size:.78rem;color:var(--orange);font-weight:700;margin-bottom:12px}
+.for-whom-section h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:var(--navy);margin-bottom:48px;line-height:1.2}
+.for-whom-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;text-align:left}
+.for-whom-card{background:#fff;border-radius:20px;padding:32px 28px;box-shadow:0 4px 24px rgba(15,47,97,.07);border-left:5px solid var(--orange);display:flex;flex-direction:column;gap:14px}
+.for-whom-icon-wrap{width:52px;height:52px;background:#FFF1E8;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+.for-whom-card h3{font-size:1.05rem;font-weight:800;color:var(--navy);margin:0}
+.for-whom-card p{font-size:.92rem;color:#5a6a85;line-height:1.65;margin:0}
+@media(max-width:600px){.for-whom-grid{grid-template-columns:1fr}}
+
 /* FOOTER */
 footer{background:#091d3d;padding:2rem;text-align:center}
 .footer-brand{font-size:.9rem;color:rgba(255,255,255,.55);margin-bottom:.4rem}
@@ -332,10 +344,48 @@ footer{background:#091d3d;padding:2rem;text-align:center}
   </div>
 </section>
 
+<!-- FOR WHOM -->
+<section class="for-whom-section">
+  <div class="for-whom-inner">
+    <p class="for-whom-label">Za koga je namijenjen?</p>
+    <h2>Prepoznaješ li se ovdje?</h2>
+    <div class="for-whom-grid">
+      <div class="for-whom-card">
+        <div class="for-whom-icon-wrap">🏠</div>
+        <div>
+          <h3>Novi domaćini</h3>
+          <p>Tek postavljaš smještaj na Airbnb ili Booking.com i ne znaš odakle krenuti — od fotografija do prve poruke gostu.</p>
+        </div>
+      </div>
+      <div class="for-whom-card">
+        <div class="for-whom-icon-wrap">📉</div>
+        <div>
+          <h3>Domaćini koji stagniraju</h3>
+          <p>Imaš rezervacije, ali popunjenost i ocjene nisu tamo gdje bi trebale biti — nešto fali, ali ne znaš točno što.</p>
+        </div>
+      </div>
+      <div class="for-whom-card">
+        <div class="for-whom-icon-wrap">💼</div>
+        <div>
+          <h3>Domaćini s više nekretnina</h3>
+          <p>Upravljaš sa 2+ smještaja i tražiš provjeren sistem koji štedi vrijeme, smanjuje stres i povećava prihod.</p>
+        </div>
+      </div>
+      <div class="for-whom-card">
+        <div class="for-whom-icon-wrap">🏆</div>
+        <div>
+          <h3>Ambiciozni domaćini</h3>
+          <p>Ciljaš Superhost status i znaš da su upravo detalji ono što te trajno izdvaja od konkurencije u gradu.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section" id="nabavi">
-  <h2>Spreman/a za <span>Superhost</span> status?</h2>
-  <p>Nabavi kompletan vodič i sve resurse — počni primjenjivati danas.</p>
+  <h2>Spreman/a da se izdvojiš i povećaš prihod za <span>30%</span>?</h2>
+  <p>Domaćini koji primjenjuju ove strategije pune kalendar i osvajaju 5-star ocjene — bez snižavanja cijena.</p>
   <div class="cta-price">
     <span class="price-old">159 KM</span>
     <span class="price-current">99 KM</span>
@@ -352,7 +402,7 @@ footer{background:#091d3d;padding:2rem;text-align:center}
 
 <footer>
   <div class="footer-brand">
-    <a href="https://www.sarajevopropertymanagement.ba" target="_blank" rel="noopener">Sarajevo Rent &amp; Manage</a>
+    Powered by <a href="https://www.sarajevopropertymanagement.ba" target="_blank" rel="noopener">Sarajevo Rent &amp; Manage</a>
   </div>
   <div class="footer-copy">&copy; 2026 Airbnb Hosting Vodič &nbsp;·&nbsp; Sva prava pridržana</div>
 </footer>
