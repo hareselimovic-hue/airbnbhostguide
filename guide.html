@@ -142,8 +142,15 @@ body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);di
 @media(max-width:768px){.float-res{display:none}}
 
 /* MOBILE RESOURCES BUBBLE */
-.mob-res-btn{display:none;position:fixed;bottom:1.4rem;right:1.4rem;z-index:200;width:54px;height:54px;background:var(--orange);border-radius:50%;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(255,103,0,.5);align-items:center;justify-content:center;font-size:1.4rem;transition:transform .2s,box-shadow .2s}
-.mob-res-btn:active{transform:scale(.95)}
+.mob-res-btn{display:none;position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:200;
+  background:var(--navy);border:none;cursor:pointer;
+  padding:.9rem .45rem;border-radius:8px 0 0 8px;
+  flex-direction:column;align-items:center;gap:.4rem;
+  box-shadow:-3px 0 16px rgba(0,0,0,.3);
+  transition:background .15s;}
+.mob-res-btn:active{background:#1a3d73;}
+.mob-res-btn-icon{font-size:1rem;color:#fff;}
+.mob-res-btn-label{font-size:.55rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;writing-mode:vertical-lr;transform:rotate(180deg);color:rgba(255,255,255,.7);}
 .mob-res-overlay{display:none;position:fixed;inset:0;z-index:198;background:rgba(0,0,0,.45)}
 .mob-res-overlay.show{display:block}
 .mob-res-sheet{position:fixed;bottom:0;left:0;right:0;z-index:199;background:var(--navy);border-radius:18px 18px 0 0;padding:1rem 1rem 2.5rem;transform:translateY(100%);transition:transform .3s ease;box-shadow:0 -6px 40px rgba(0,0,0,.4)}
@@ -1037,7 +1044,10 @@ body{font-family:'Inter',sans-serif;color:var(--dark);background:var(--light);di
 
 <!-- Mobile Resources Bubble -->
 <div class="mob-res-overlay" id="mobResOverlay" onclick="closeMobRes()"></div>
-<button class="mob-res-btn" id="mobResBtn" onclick="toggleMobRes()" aria-label="Besplatni resursi">📚</button>
+<button class="mob-res-btn" id="mobResBtn" onclick="toggleMobRes()" aria-label="Besplatni resursi">
+  <span class="mob-res-btn-icon">📚</span>
+  <span class="mob-res-btn-label">Resursi</span>
+</button>
 <div class="mob-res-sheet" id="mobResSheet">
   <div class="mob-res-handle"></div>
   <a href="https://rentl.io/preporuci-rentlio/lLCSmbQvYU" target="_blank" rel="noopener"
