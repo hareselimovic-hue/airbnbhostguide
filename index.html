@@ -25,7 +25,7 @@ nav{background:var(--navy);padding:1rem 2rem;display:flex;justify-content:space-
 .hero{background:var(--navy);color:#fff;padding:5.5rem 2rem 5rem;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-60%;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(255,103,0,.12) 0%,transparent 70%);pointer-events:none}
 .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,103,0,.15);color:var(--orange);border:1px solid rgba(255,103,0,.4);padding:.3rem 1rem;border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1.5rem}
-.hero h1{font-size:clamp(2.2rem,6vw,3.8rem);font-weight:900;line-height:1.1;margin-bottom:1.3rem;max-width:780px;margin-left:auto;margin-right:auto}
+.hero h1{font-size:clamp(2.2rem,6vw,3.8rem);font-weight:900;line-height:1.1;margin-bottom:1.3rem;max-width:780px;margin-left:auto;margin-right:auto;color:#fff!important}
 .hero h1 span{color:var(--orange)}
 .hero-sub{font-size:1.05rem;color:rgba(255,255,255,.68);max-width:560px;margin:0 auto 2.5rem}
 .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
@@ -83,7 +83,7 @@ section{padding:5rem 2rem}
 
 /* CTA */
 .cta-section{background:var(--navy);color:#fff;text-align:center;padding:5.5rem 2rem}
-.cta-section h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:.9rem}
+.cta-section h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:.9rem;color:#fff!important}
 .cta-section h2 span{color:var(--orange)}
 .cta-section > p{color:rgba(255,255,255,.65);max-width:500px;margin:0 auto 2rem;font-size:1rem}
 .cta-free-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,103,0,.15);color:var(--orange);border:1px solid rgba(255,103,0,.4);padding:.4rem 1.2rem;border-radius:20px;font-size:.82rem;font-weight:700;margin-bottom:1.5rem}
@@ -99,10 +99,10 @@ section{padding:5rem 2rem}
 .paypal-wrap{margin-top:.5rem}
 
 /* FOR WHOM */
-.for-whom-section{background:#F4F6FB;padding:80px 2rem}
-.for-whom-inner{max-width:1080px;margin:0 auto;text-align:center}
+.for-whom-section{background:var(--navy);padding:80px 2rem}
+.for-whom-inner{max-width:1080px;margin:0 auto;text-align:left}
 .for-whom-label{text-transform:uppercase;letter-spacing:.15em;font-size:.78rem;color:var(--orange);font-weight:700;margin-bottom:12px}
-.for-whom-section h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:var(--navy);margin-bottom:48px;line-height:1.2}
+.for-whom-section h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:#fff;margin-bottom:48px;line-height:1.2}
 .for-whom-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;text-align:left}
 .for-whom-card{background:#fff;border-radius:20px;padding:32px 28px;box-shadow:0 4px 24px rgba(15,47,97,.07);border-left:5px solid var(--orange);display:flex;flex-direction:column;gap:14px}
 .for-whom-icon-wrap{width:52px;height:52px;background:#FFF1E8;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
