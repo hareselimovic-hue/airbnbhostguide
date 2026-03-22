@@ -82,7 +82,7 @@ section{padding:5rem 2rem}
 .why-item p{color:var(--gray);font-size:.85rem;line-height:1.55}
 
 /* CTA */
-.cta-section{background:var(--navy);color:#fff;text-align:center;padding:5.5rem 2rem}
+.cta-section{background:var(--navy);color:#fff;text-align:center;padding:5.5rem 2rem 6.5rem;position:relative}
 .cta-section h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:.9rem;color:#fff!important}
 .cta-section h2 span{color:var(--orange)}
 .cta-section > p{color:rgba(255,255,255,.65);max-width:500px;margin:0 auto 2rem;font-size:1rem}
@@ -139,9 +139,9 @@ footer{background:#091d3d;padding:2rem;text-align:center}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-tag">✦ 18 poglavlja &nbsp;·&nbsp; 5 resursa &nbsp;·&nbsp; Bosanski</div>
-  <h1>Kompletan Vodič za<br><span>Airbnb Hosting</span></h1>
-  <p class="hero-sub">Sve što trebaš da pokreneš, optimiziraš i skaliraš svoju Airbnb nekretninu — od prvog listinga do Superhost statusa.</p>
+  <div class="hero-tag">✦ Sarajevo &nbsp;·&nbsp; Stvarno iskustvo &nbsp;·&nbsp; Odmah primjenjivo</div>
+  <h1>Povećaj prihod od svog apartmana za <span>20–40%</span> uz provjeren Airbnb sistem</h1>
+  <p class="hero-sub">Praktičan vodič baziran na stvarnom iskustvu upravljanja apartmanima u Sarajevu — bez teorije i nagađanja.</p>
   <div class="hero-btns">
     <a href="#nabavi" class="hero-cta">Nabavi Vodič &nbsp;→</a>
     <a href="#resursi" class="hero-cta-sec">Šta je uključeno ↓</a>
@@ -156,13 +156,88 @@ footer{background:#091d3d;padding:2rem;text-align:center}
   <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Praktičan</span></div>
 </div>
 
+<!-- PROBLEM -->
+<section style="background:var(--navy);padding:5rem 2rem;text-align:center;">
+  <div class="container">
+    <p class="section-label" style="color:var(--orange);">Prepoznaješ li se?</p>
+    <h2 class="section-title" style="color:#fff;margin-bottom:1rem;">Većina vlasnika apartmana<br>pravi iste greške</h2>
+    <p style="color:rgba(255,255,255,.6);font-size:.97rem;max-width:520px;margin:0 auto 3rem;">I ne znaju da ih prave — jer niko nije pokazao kako to izgleda kad je urađeno kako treba.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;text-align:left;margin-bottom:3rem;">
+      <div style="background:#2a5298;border-radius:12px;padding:1.4rem;border-left:4px solid var(--orange);">
+        <div style="font-size:1.6rem;margin-bottom:.7rem;">📸</div>
+        <strong style="color:#fff;font-size:.97rem;display:block;margin-bottom:.4rem;">Slabe fotografije</strong>
+        <p style="color:rgba(255,255,255,.5);font-size:.84rem;line-height:1.55;margin:0;">Gost ne klikne ni na listing — bez obzira koliko je apartman dobar.</p>
+      </div>
+      <div style="background:#2a5298;border-radius:12px;padding:1.4rem;border-left:4px solid var(--orange);">
+        <div style="font-size:1.6rem;margin-bottom:.7rem;">💸</div>
+        <strong style="color:#fff;font-size:.97rem;display:block;margin-bottom:.4rem;">Pogrešne cijene</strong>
+        <p style="color:rgba(255,255,255,.5);font-size:.84rem;line-height:1.55;margin:0;">Preniska cijena gubi novac, previsoka prazni kalendar. Malo ko zna sredinu.</p>
+      </div>
+      <div style="background:#2a5298;border-radius:12px;padding:1.4rem;border-left:4px solid var(--orange);">
+        <div style="font-size:1.6rem;margin-bottom:.7rem;">📋</div>
+        <strong style="color:#fff;font-size:.97rem;display:block;margin-bottom:.4rem;">Loše postavljen listing</strong>
+        <p style="color:rgba(255,255,255,.5);font-size:.84rem;line-height:1.55;margin:0;">Opis koji ne prodaje, amenitiji koje niko ne vidi, naslov koji ne privlači klikove.</p>
+      </div>
+      <div style="background:#2a5298;border-radius:12px;padding:1.4rem;border-left:4px solid var(--orange);">
+        <div style="font-size:1.6rem;margin-bottom:.7rem;">💬</div>
+        <strong style="color:#fff;font-size:.97rem;display:block;margin-bottom:.4rem;">Komunikacija koja ne prodaje</strong>
+        <p style="color:rgba(255,255,255,.5);font-size:.84rem;line-height:1.55;margin:0;">Spori odgovori i generičke poruke — gost odlazi kod konkurencije.</p>
+      </div>
+    </div>
+    <div style="background:var(--orange);border-radius:12px;padding:1.2rem 2rem;display:inline-block;">
+      <p style="color:#fff;font-size:1.05rem;font-weight:700;margin:0;">Rezultat: prazni dani i izgubljen novac — svaki mjesec. 📉</p>
+    </div>
+  </div>
+</section>
+
 <!-- CHAPTERS -->
 <section class="bg-light">
   <div class="container">
-    <p class="section-label">Sadržaj vodiča</p>
-    <h2 class="section-title">18 poglavlja.<br>Sve što trebaš znati.</h2>
-    <p class="section-sub">Od postavljanja listinga do upravljanja finansijama — korak po korak, praktično i odmah primjenjivo.</p>
-    <div class="chapters-grid">
+    <p class="section-label">Šta ćeš naučiti</p>
+    <h2 class="section-title">Ovaj vodič ti pokazuje<br>tačno kako da:</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;margin-bottom:3rem;">
+      <div style="background:#fff;border-radius:10px;padding:1.3rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,.07);display:flex;gap:1rem;align-items:flex-start;">
+        <div style="width:36px;height:36px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0;">✓</div>
+        <div><strong style="color:var(--navy);font-size:.95rem;">Postaviš listing koji privlači goste</strong><p style="color:var(--gray);font-size:.83rem;margin:.3rem 0 0;line-height:1.5;">Naslov, opis i fotografije koji pretvaraju pregled u rezervaciju.</p></div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:1.3rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,.07);display:flex;gap:1rem;align-items:flex-start;">
+        <div style="width:36px;height:36px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0;">✓</div>
+        <div><strong style="color:var(--navy);font-size:.95rem;">Formiš cijene za maksimalnu popunjenost</strong><p style="color:var(--gray);font-size:.83rem;margin:.3rem 0 0;line-height:1.5;">Sezonske strategije i dynamic pricing koji maksimiziraju prihod.</p></div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:1.3rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,.07);display:flex;gap:1rem;align-items:flex-start;">
+        <div style="width:36px;height:36px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0;">✓</div>
+        <div><strong style="color:var(--navy);font-size:.95rem;">Izbjegneš najskuplje greške domaćina</strong><p style="color:var(--gray);font-size:.83rem;margin:.3rem 0 0;line-height:1.5;">Rješavanje problema, žalbi i zaštita od loših review-a.</p></div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:1.3rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,.07);display:flex;gap:1rem;align-items:flex-start;">
+        <div style="width:36px;height:36px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0;">✓</div>
+        <div><strong style="color:var(--navy);font-size:.95rem;">Automatizuješ komunikaciju sa gostima</strong><p style="color:var(--gray);font-size:.83rem;margin:.3rem 0 0;line-height:1.5;">Gotovi predlošci za 5 ključnih momenata — copy, prilagodi, pošalji.</p></div>
+      </div>
+    </div>
+    <p class="section-label" style="margin-bottom:1rem;">Iz vodiča — relevantna poglavlja</p>
+    <div class="chapters-grid" style="grid-template-columns:repeat(auto-fill,minmax(270px,1fr));">
+      <div class="chapter-card">
+        <div class="ch-num">POGLAVLJE 03</div>
+        <h3 class="ch-title">Optimizacija Listinga</h3>
+        <ul class="ch-bullets"><li>Naslov koji privlači klikove</li><li>Opis koji prodaje boravak</li><li>Amenitiji i filteri pretrage</li></ul>
+      </div>
+      <div class="chapter-card">
+        <div class="ch-num">POGLAVLJE 05</div>
+        <h3 class="ch-title">Postavljanje Cijene</h3>
+        <ul class="ch-bullets"><li>Analiza konkurencije</li><li>Sezonske i vikend cijene</li><li>Dynamic pricing (PriceLabs)</li></ul>
+      </div>
+      <div class="chapter-card">
+        <div class="ch-num">POGLAVLJE 12</div>
+        <h3 class="ch-title">Automatske Poruke</h3>
+        <ul class="ch-bullets"><li>5 ključnih momenata za poruke</li><li>Airbnb Scheduled Messages</li><li>Gotovi predlošci za copy&amp;paste</li></ul>
+      </div>
+      <div class="chapter-card">
+        <div class="ch-num">POGLAVLJE 13</div>
+        <h3 class="ch-title">Rješavanje Problema</h3>
+        <ul class="ch-bullets"><li>Žalbe i kvarovi</li><li>Eskalacija i kompenzacija</li><li>Zaštita od lošeg review-a</li></ul>
+      </div>
+    </div>
+    <p style="display:none;"></p><!-- placeholder za stari chapters-grid div -->
+    <div style="display:none;">
       <div class="chapter-card">
         <div class="ch-num">POGLAVLJE 01</div>
         <h3 class="ch-title">Šta je Airbnb hosting i zašto je toliko popularan?</h3>
@@ -439,14 +514,25 @@ footer{background:#091d3d;padding:2rem;text-align:center}
 }
 </style>
 
+<!-- URGENCY -->
+<div style="background:var(--orange);padding:1.1rem 2rem;text-align:center;">
+  <p style="color:#fff;font-weight:700;font-size:1rem;margin:0;">⏳ Ponuda važi ograničeno — trenutna cijena <strong>99 KM</strong> umjesto <s style="opacity:.7;">159 KM</s></p>
+</div>
+
 <!-- CTA -->
 <section class="cta-section" id="nabavi">
-  <h2>Spreman/a da se izdvojiš i povećaš prihod za <span>30%</span>?</h2>
+  <h2>Spreman/a da se izdvojiš i povećaš prihod za <span>20–40%</span>?</h2>
   <p>Domaćini koji primjenjuju ove strategije pune kalendar i osvajaju 5-star ocjene — bez snižavanja cijena.</p>
   <div class="cta-price">
     <span class="price-old">159 KM</span>
     <span class="price-current">99 KM</span>
   </div>
+  <!-- Garancija -->
+  <div style="display:inline-flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:.9rem 1.6rem;margin-bottom:1.5rem;">
+    <span style="font-size:1.5rem;">🛡️</span>
+    <p style="color:#fff;font-size:.92rem;margin:0;line-height:1.5;text-align:left;"><strong>Garancija povrata novca</strong><br><span style="color:rgba(255,255,255,.7);">Ako ne dobiješ vrijednost iz vodiča — vraćamo novac. Bez pitanja.</span></p>
+  </div>
+  <!-- Tekst investicija — MORA biti iznad paypal-wrap -->
   <div class="paypal-wrap">
     <style>.pp-THB64W5W4MEYJ{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}</style>
     <form action="https://www.paypal.com/ncp/payment/THB64W5W4MEYJ" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
