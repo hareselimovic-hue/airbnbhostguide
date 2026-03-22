@@ -516,23 +516,28 @@ footer{background:#091d3d;padding:2rem;text-align:center}
 
 <!-- URGENCY -->
 <div style="background:var(--orange);padding:1.1rem 2rem;text-align:center;">
-  <p style="color:#fff;font-weight:700;font-size:1rem;margin:0;">⏳ Ponuda važi ograničeno — trenutna cijena <strong>99 KM</strong> umjesto <s style="opacity:.7;">159 KM</s></p>
+  <p style="color:#fff;font-weight:700;font-size:1rem;margin:0;">⏳ Ponuda važi ograničeno — trenutna cijena <strong>99 KM</strong> umjesto <s style="opacity:.7;">159 KM</s> &nbsp;·&nbsp; Ističe za: <span id="cta-timer" style="font-variant-numeric:tabular-nums;letter-spacing:.5px;">24:00:00</span></p>
 </div>
 
 <!-- CTA -->
 <section class="cta-section" id="nabavi">
   <h2>Spreman/a da se izdvojiš i povećaš prihod za <span>20–40%</span>?</h2>
   <p>Domaćini koji primjenjuju ove strategije pune kalendar i osvajaju 5-star ocjene — bez snižavanja cijena.</p>
+  <!-- Naziv proizvoda -->
+  <div style="display:inline-block;background:rgba(255,103,0,.2);border:1px solid rgba(255,103,0,.5);border-radius:8px;padding:.5rem 1.4rem;margin-bottom:1.2rem;">
+    <span style="color:#fff;font-weight:800;font-size:1.1rem;letter-spacing:.3px;">📘 Airbnb Hosting Vodič + Bonusi</span>
+  </div>
   <div class="cta-price">
     <span class="price-old">159 KM</span>
     <span class="price-current">99 KM</span>
   </div>
+  <!-- Upečatljiva rečenica -->
+  <p style="color:var(--orange);font-size:1.1rem;font-weight:800;margin:0 0 1.4rem;text-transform:uppercase;letter-spacing:.5px;">Jednokratna kupovina. Povrat investicije u prvoj rezervaciji.</p>
   <!-- Garancija -->
   <div style="display:inline-flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:.9rem 1.6rem;margin-bottom:1.5rem;">
     <span style="font-size:1.5rem;">🛡️</span>
     <p style="color:#fff;font-size:.92rem;margin:0;line-height:1.5;text-align:left;"><strong>Garancija povrata novca</strong><br><span style="color:rgba(255,255,255,.7);">Ako ne dobiješ vrijednost iz vodiča — vraćamo novac. Bez pitanja.</span></p>
   </div>
-  <!-- Tekst investicija — MORA biti iznad paypal-wrap -->
   <div class="paypal-wrap">
     <style>.pp-THB64W5W4MEYJ{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}</style>
     <form action="https://www.paypal.com/ncp/payment/THB64W5W4MEYJ" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
@@ -550,5 +555,30 @@ footer{background:#091d3d;padding:2rem;text-align:center}
   <div class="footer-copy">&copy; 2026 Airbnb Hosting Vodič &nbsp;·&nbsp; Sva prava pridržana</div>
 </footer>
 
+<script>
+(function(){
+  var KEY = 'ctaExpiry';
+  var el = document.getElementById('cta-timer');
+  if(!el) return;
+  var expiry = localStorage.getItem(KEY);
+  if(!expiry) {
+    expiry = Date.now() + 24 * 60 * 60 * 1000;
+    localStorage.setItem(KEY, expiry);
+  } else {
+    expiry = parseInt(expiry);
+  }
+  function pad(n){ return n < 10 ? '0'+n : n; }
+  function tick(){
+    var diff = expiry - Date.now();
+    if(diff <= 0){ el.textContent = '00:00:00'; return; }
+    var h = Math.floor(diff / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    el.textContent = pad(h)+':'+pad(m)+':'+pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
 </body>
 </html>
